@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <FontStyles>
+        <Style FontName="发文字号" Font="宋体" Size="12" FontStyle="Bold" Align="MiddleCenter" LineSpac="20" Indent="2" />
+    </FontStyles>
+</Config>

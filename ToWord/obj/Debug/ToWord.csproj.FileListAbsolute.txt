@@ -1,0 +1,14 @@
+E:\Dev\ToWord\ToWord\bin\Debug\ToWord.exe.config
+E:\Dev\ToWord\ToWord\bin\Debug\ToWord.exe
+E:\Dev\ToWord\ToWord\bin\Debug\ToWord.pdb
+E:\Dev\ToWord\ToWord\bin\Debug\Utilities.dll
+E:\Dev\ToWord\ToWord\bin\Debug\Newtonsoft.Json.dll
+E:\Dev\ToWord\ToWord\bin\Debug\Utilities.pdb
+E:\Dev\ToWord\ToWord\bin\Debug\Newtonsoft.Json.xml
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.Form1.resources
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.Properties.Resources.resources
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.csproj.GenerateResource.Cache
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.exe
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.pdb
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.csproj.ResolveComReference.cache
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.csprojResolveAssemblyReference.cache
