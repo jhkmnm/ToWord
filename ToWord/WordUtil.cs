@@ -37,7 +37,8 @@ namespace ToWord
                 {
                     p.LineSpacingRule = Word.WdLineSpacing.wdLineSpaceAtLeast;  //行距最小值
                     p.LineSpacing = style.LineSpac;    //行距28磅
-                }
+                }                
+                p.Format.Alignment = style.Align;
                 p.Range.Font.Color = style.FontColor;
                 p.Range.Font.Bold = style.FontStyle == System.Drawing.FontStyle.Bold ? 1 : 0;
                 p.CharacterUnitFirstLineIndent = style.Indent == 0 ? p.CharacterUnitFirstLineIndent : style.Indent;    //缩进2字符
@@ -69,10 +70,12 @@ namespace ToWord
                     p.LineSpacing = style.LineSpac;    //行距28磅
                 }
                 p.CharacterUnitFirstLineIndent = style.Indent == 0 ? p.CharacterUnitFirstLineIndent : style.Indent;    //缩进2字符
-
+                //Word.ListGallery l = application.ListGalleries[Word.WdListGalleryType.wdOutlineNumberGallery];
+                //l.ListTemplates[ref a].ListLevels[1].NumberFormat = style.NumberFormat;
                 Word.ListTemplate it = application.ActiveDocument.ListTemplates.Add(ref bContinuousPrev, ref oName);
                 it.ListLevels[1].NumberFormat = style.NumberFormat;
-                p.Range.ListFormat.ApplyListTemplate(it, ref bContinuousPrev, ref a, ref listFormat);
+                //application.ActiveDocument.
+                //p.Range.ListFormat.ListTemplate..ApplyListTemplate(l, ref bContinuousPrev, ref a, ref listFormat);
             }
 
             //添加到末尾
@@ -81,7 +84,10 @@ namespace ToWord
 
         public void AddLine()
         {
-            application.Selection.TypeParagraph();
+            Word.Paragraph p;
+            p = document.Content.Paragraphs.Add(ref nothing);
+            p.Range.Text = "";
+            p.Range.InsertParagraphAfter();
         }
 
         /// <summary>
@@ -140,6 +146,21 @@ namespace ToWord
             object style = Word.WdBuiltinStyle.wdStyleListNumber;
             p.set_Style(ref style);
             p.Range.InsertParagraphAfter();
+        }
+
+        public void InsertPageNumber(string strType, bool bHeader)
+        {
+            object oAlignment = Word.WdPageNumberAlignment.wdAlignPageNumberOutside;
+            object oFirstPage = bHeader;
+            Word.WdHeaderFooterIndex WdFooterIndex = Word.WdHeaderFooterIndex.wdHeaderFooterPrimary;
+            var page = application.Selection.Sections[1].Footers[WdFooterIndex].PageNumbers;
+            page.NumberStyle = Word.WdPageNumberStyle.wdPageNumberStyleNumberInDash;
+            page.HeadingLevelForChapter = 0;
+            page.ChapterPageSeparator = Word.WdSeparatorType.wdSeparatorHyphen;
+            page.RestartNumberingAtSection = false;
+            page.StartingNumber = 0;
+            page.Add(ref oAlignment, ref oFirstPage);
+            //application.ActiveWindow.ActivePane.View.Zoom.PageFit = Word.WdPageFit.wdPageFitFullPage;
         }
 
         /// <summary>

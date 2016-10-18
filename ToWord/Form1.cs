@@ -51,30 +51,33 @@ namespace ToWord
             //版记
             //1.抄送[方正仿宋，四号]
             //2.结尾[方正仿宋，四号]  固定
-            //三号15.75  二号21.75
+            //三号16  二号21.75
             #endregion
+            float font2 = 22f;
+            float font3 = 16f;
+            float font4 = 14f;
 
             Config config = new Config
-            {
+            {                
                 FontStyles = new List<Style> {
                     new Style { FontName = "标题", Font = "方正小标宋_GBK", Size = 33, FontStyle = FontStyle.Bold, FontColor = Microsoft.Office.Interop.Word.WdColor.wdColorRed, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify },
-                    new Style { FontName = "发文字号", Font = "方正仿宋_GBK", Size = 15.75F, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter },
-                    new Style { FontName = "题目", Font = "方正小标宋_GBK", Size = 21.75F, FontStyle = FontStyle.Bold, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter },
-                    new Style { FontName = "主送部门", Font = "方正仿宋_GBK", Size = 15.75F },
-                    new Style { FontName = "正文", Font = "方正仿宋_GBK", Size = 15.75F, Indent = 2, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify, LineSpac = 28F },
-                    new Style { FontName = "一级标题", Font = "方正黑体_GBK", Size = 15.75F, Indent = 2, NumberFormat = "{0}、" },
-                    new Style { FontName = "二级标题", Font = "方正楷体_GBK", Size = 15.75F, Indent = 2, NumberFormat = "({0})" },
-                    new Style { FontName = "三级标题", Font = "方正仿宋_GBK", Size = 15.75F, Indent = 2, NumberFormat = "{0}." },
-                    new Style { FontName = "四级标题", Font = "方正仿宋_GBK", Size = 15.75F, Indent = 2, NumberFormat = "({0})" },
-                    new Style { FontName = "正文附件", Font = "方正仿宋_GBK", Size = 15.75F, Indent = 2},
+                    new Style { FontName = "发文字号", Font = "方正仿宋_GBK", Size = font3, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter },
+                    new Style { FontName = "题目", Font = "方正小标宋_GBK", Size = font2, FontStyle = FontStyle.Bold, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter },
+                    new Style { FontName = "主送部门", Font = "方正仿宋_GBK", Size = font3 },
+                    new Style { FontName = "正文", Font = "方正仿宋_GBK", Size = font3, Indent = 2, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify, LineSpac = 28F },
+                    new Style { FontName = "一级标题", Font = "方正黑体_GBK", Size = font3, Indent = 2, NumberFormat = "{0}、" },
+                    new Style { FontName = "二级标题", Font = "方正楷体_GBK", Size = font3, Indent = 2, NumberFormat = "({0})" },
+                    new Style { FontName = "三级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "{0}." },
+                    new Style { FontName = "四级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "({0})" },
+                    new Style { FontName = "正文附件", Font = "方正仿宋_GBK", Size = font3, Indent = 2},
                     new Style { FontName = "落款"},
-                    new Style { FontName = "日期", Font = "方正仿宋_GBK", Size = 15.75F, Align = MSWord.WdParagraphAlignment.wdAlignParagraphRight, Indent = 4},
-                    new Style { FontName = "发送至", Font = "方正仿宋_GBK", Size = 15.75F, Indent = 2},
-                    new Style { FontName = "附件中附件", Font = "方正黑体_GBK", Size = 15.75F},
-                    new Style { FontName = "附件题目", Font = "方正小标宋_GBK", Size = 21.75F, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter},
-                    new Style { FontName = "附件正文", Font = "方正仿宋_GBK", Size = 15.75F, Indent = 2, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify, LineSpac = 28F},
-                    new Style { FontName = "抄送", Font = "方正仿宋_GBK", Size = 14F},
-                    new Style { FontName = "结尾", Font = "方正仿宋_GBK", Size = 14F}
+                    new Style { FontName = "日期", Font = "方正仿宋_GBK", Size = font3, Align = MSWord.WdParagraphAlignment.wdAlignParagraphRight, Indent = 4},
+                    new Style { FontName = "发送至", Font = "方正仿宋_GBK", Size = font3, Indent = 2},
+                    new Style { FontName = "附件中附件", Font = "方正黑体_GBK", Size = font3},
+                    new Style { FontName = "附件题目", Font = "方正小标宋_GBK", Size = font2, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter},
+                    new Style { FontName = "附件正文", Font = "方正仿宋_GBK", Size = font3, Indent = 2, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify, LineSpac = 28F},
+                    new Style { FontName = "抄送", Font = "方正仿宋_GBK", Size = font4},
+                    new Style { FontName = "结尾", Font = "方正仿宋_GBK", Size = font4}
                 }
             };
             #region
@@ -140,11 +143,11 @@ namespace ToWord
                     new Content { ConType = "发文字号", ConContent = "发文字号"},
                     new Content { ConType = "题目", ConContent = "国网重庆市电力公司永川供电分公司关于XX的通知"},
                     new Content { ConType = "正文", ConContent = "（首行缩进2个字符）x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x〔2013〕x号 x x x x x x x x。（正文 方正仿宋 三号）"},
-                    new Content { ConType = "一级标题", ConContent = "一级标题", TitleIndex = 0},
-                    new Content { ConType = "二级标题", ConContent = "二级标题", TitleIndex = 0},
-                    new Content { ConType = "三级标题", ConContent = "三级标题", TitleIndex = 0},
+                    new Content { ConType = "一级标题", ConContent = "一、一级标题", TitleIndex = 0},
+                    new Content { ConType = "二级标题", ConContent = "（一）二级标题", TitleIndex = 0},
+                    new Content { ConType = "三级标题", ConContent = "1.三级标题", TitleIndex = 0},
                     new Content { ConType = "正文", ConContent = "x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x"},
-                    new Content { ConType = "四级标题", ConContent = "四级标题", TitleIndex = 0},
+                    new Content { ConType = "四级标题", ConContent = "（1）四级标题", TitleIndex = 0},
                     new Content { ConType = "正文", ConContent = "x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x"},
                     new Content { ConType = "一级标题", ConContent = "一级标题", TitleIndex = 1}
                 }
@@ -166,7 +169,11 @@ namespace ToWord
                     word.AddContent(content.ConContent, style);
                 }
             }
-            
+            word.InsertPageNumber("Rfight", true);
+            word.AddLine();
+            word.AddContent("级标题级标题级标题级标题级标题", config.FontStyles[3]);
+
+
             word.SaveAndClose("D:\\123.doc");
         }
 
