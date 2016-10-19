@@ -16,7 +16,9 @@ using MSWord = Microsoft.Office.Interop.Word;
 namespace ToWord
 {
     public partial class Form1 : Form
-    { 
+    {
+        Config config;
+
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +26,7 @@ namespace ToWord
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             #region
             //            正文
             //1.发文字号[方正仿宋 居中三号，〔〕]  固定
@@ -57,7 +60,7 @@ namespace ToWord
             float font3 = 16f;
             float font4 = 14f;
 
-            Config config = new Config
+            config = new Config
             {                
                 FontStyles = new List<Style> {
                     new Style { FontName = "标题", Font = "方正小标宋_GBK", Size = 33, FontStyle = FontStyle.Bold, FontColor = Microsoft.Office.Interop.Word.WdColor.wdColorRed, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify },
@@ -66,9 +69,9 @@ namespace ToWord
                     new Style { FontName = "主送部门", Font = "方正仿宋_GBK", Size = font3 },
                     new Style { FontName = "正文", Font = "方正仿宋_GBK", Size = font3, Indent = 2, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify, LineSpac = 28F },
                     new Style { FontName = "一级标题", Font = "方正黑体_GBK", Size = font3, Indent = 2, NumberFormat = "{0}、" },
-                    new Style { FontName = "二级标题", Font = "方正楷体_GBK", Size = font3, Indent = 2, NumberFormat = "({0})" },
+                    new Style { FontName = "二级标题", Font = "方正楷体_GBK", Size = font3, Indent = 2, NumberFormat = "（{0}） " },
                     new Style { FontName = "三级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "{0}." },
-                    new Style { FontName = "四级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "({0})" },
+                    new Style { FontName = "四级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "（{0}）" },
                     new Style { FontName = "正文附件", Font = "方正仿宋_GBK", Size = font3, Indent = 2},
                     new Style { FontName = "落款"},
                     new Style { FontName = "日期", Font = "方正仿宋_GBK", Size = font3, Align = MSWord.WdParagraphAlignment.wdAlignParagraphRight, Indent = 4},
@@ -131,9 +134,8 @@ namespace ToWord
             ////Utilities.XmlHelper.XmlSerializeToFile(config, "config.xml", Encoding.UTF8);      
             #endregion
 
-            WordUtil word = new ToWord.WordUtil();
-            string[] titleA = { "一", "二", "三", "四" };
-            string[] titleB = { "1", "2", "3", "4" };
+            return;
+
 
             List<Content> contents = new List<Content>();
             contents.AddRange(
@@ -153,37 +155,163 @@ namespace ToWord
                 }
             );
 
-            foreach(var content in contents)
+            
+        }
+
+        private void btnNotice_Click(object sender, EventArgs e)
+        {
+            Notice n = new Notice();
+            FormNotice f = new FormNotice(n);
+            if(f.ShowDialog() == DialogResult.OK)
             {
-                var style = config.FontStyles.Find(w => w.FontName == content.ConType);
-                if (content.ConType.EndsWith("级标题"))
-                {
-                    string index = (content.ConType == "一级标题" || content.ConType == "二级标题") ? titleA[content.TitleIndex] : titleB[content.TitleIndex];
-                    style.NumberFormat = string.Format(style.NumberFormat, index);
-                    word.AddTitle(content.ConContent, style);
-                }
-                else if(content.ConType == "")//附件
-                { }
-                else
-                {
-                    word.AddContent(content.ConContent, style);
-                }
+                n = f.Notice;
+                ExportWord(n);
             }
+        }
+
+        private void ExportWord(Notice n)
+        {
+            WordUtil word = new ToWord.WordUtil();
+
+            var biaoti = new Content { ConType = "标题", ConContent = "国网重庆市电力公司永川供电分公司文件" };
+            var style = config.FontStyles.Find(w => w.FontName == biaoti.ConType);
+            word.AddContent(biaoti.ConContent, style);
+
+            style = config.FontStyles.Find(w => w.FontName == n.Fawen.ConType);
+            word.AddContent(n.Fawen.ConContent, style);
+
+            style = config.FontStyles.Find(w => w.FontName == n.Timu.ConType);
+            word.AddContent(n.Timu.ConContent, style);
+
+            style = config.FontStyles.Find(w => w.FontName == n.Bumen.ConType);
+            word.AddContent(n.Bumen.ConContent, style);
+
+            style = config.FontStyles.Find(w => w.FontName == n.BumenZhenwen.ConType);
+            word.AddContent(n.BumenZhenwen.ConContent, style);
+
+            string[] titleA = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "十" };
+            string[] titleB = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+            int a, b, c, d = 0;
+            a = b = c = d;
+
+            foreach (var v in n.Zhenwen)
+            {
+                style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
+                if (v.TContent.ConType == "一级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++])+v.TContent.ConContent;
+                }
+                else if(v.TContent.ConType == "二级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
+                }
+                else if (v.TContent.ConType == "三级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[c++]) + v.TContent.ConContent;
+                }
+                else if (v.TContent.ConType == "四级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[d++]) + v.TContent.ConContent;
+                }
+                word.AddContent(v.TContent.ConContent, style);
+            }
+
+            //foreach (var content in contents)
+            //{
+            //    var style = config.FontStyles.Find(w => w.FontName == content.ConType);
+            //    if (content.ConType.EndsWith("级标题"))
+            //    {
+            //        string index = (content.ConType == "一级标题" || content.ConType == "二级标题") ? titleA[content.TitleIndex] : titleB[content.TitleIndex];
+            //        style.NumberFormat = string.Format(style.NumberFormat, index);
+            //        word.AddTitle(content.ConContent, style);
+            //    }
+            //    else if (content.ConType == "")//附件
+            //    { }
+            //    else
+            //    {
+            //        word.AddContent(content.ConContent, style);
+            //    }
+            //}
             word.InsertPageNumber("Rfight", true);
-            word.AddLine();
-            word.AddContent("级标题级标题级标题级标题级标题", config.FontStyles[3]);
-
-
             word.SaveAndClose("D:\\123.doc");
         }
+    }
 
-        public class Content
-        {
-            public string ConType { get; set; }
+    public class Content
+    {
+        /*
+         内容类型分为正文、标题、文件
+         * 1.正文只需要处理ConContent
+         * 2.标题需要记录当前的索引，用于显示标题前的序号
+         * 3.文件记录FileName,ConContent为文件路径
+         */
 
-            public string ConContent { get; set; }
+        public string ConType { get; set; }
 
-            public int TitleIndex { get; set; }
-        }
+        public string ConContent { get; set; }
+
+        ///// <summary>
+        ///// 文件标题
+        ///// </summary>
+        //public string FileName { get; set; }
+
+        /// <summary>
+        /// 当前标题索引
+        /// </summary>
+        public int TitleIndex { get; set; }
+    }
+
+    public enum ConType
+    {
+        Content,
+        Title
+    }
+
+    public class Title
+    {
+        public int ID { get; set; }
+        public Content TContent { get; set; }
+
+        public int Parent { get; set; }
+    }
+
+    public class Notice
+    {
+        public Content Fawen { get; set; }
+
+        public Content Timu { get; set; }
+
+        public Content Bumen { get; set; }
+
+        public Content BumenZhenwen { get; set; }
+
+        public List<Title> Zhenwen { get; set; }
+
+        public Content Luokuan { get; set; }
+
+        public Content Riqi { get; set; }
+
+        public Content Chaosong { get; set; }
+
+        public Content Floot { get; set; }
+    }
+
+    public class WordsAppendix
+    {
+        public Content Timu { get; set; }
+
+        public Content TZhenwen { get; set; }
+
+        public List<Title> Zhenwen { get; set; }
+
+        public List<WordsAppendix> WAppendixs { get; set; }
+
+        public List<FileAppendix> FAppendixs { get; set; }
+    }
+
+    public class FileAppendix
+    {
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
     }
 }
