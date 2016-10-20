@@ -297,6 +297,40 @@ namespace ToWord
                                 }
                                 word.AddContent(waav.TContent.ConContent, style);
                             }
+
+                            foreach (var waff in wa.Appendixs)
+                            {
+                                style = config.FontStyles.Find(w => w.FontName == "附件中附件");
+                                word.AddContent("附", style);
+
+                                var fa = (FileAppendix)appendix;
+                                style = config.FontStyles.Find(w => w.FontName == "附件题目");
+                                word.AddContent(fa.Title, style);
+
+                                if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+                                {
+                                    word.AddExcel(fa.FilePath);
+                                }
+                                else
+                                {
+                                    word.AddImage(fa.FilePath);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            var fa = (FileAppendix)appendix;
+                            style = config.FontStyles.Find(w => w.FontName == "附件题目");
+                            word.AddContent(fa.Title, style);
+
+                            if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+                            {
+                                word.AddExcel(fa.FilePath);
+                            }
+                            else
+                            {
+                                word.AddImage(fa.FilePath);
+                            }
                         }
                     }
                     #endregion
