@@ -18,6 +18,11 @@ namespace ToWord
         {
             InitializeComponent();
 
+            WordUtil word = new WordUtil();
+            var style = new Model.Style { FontName = "抄送", Font = "方正仿宋_GBK", Size = 14f};
+            word.AddTable("x x x x x x x x，x x x x x x x x。", style);
+            word.SaveAndClose("D:\\1234.doc");
+
             _notice = new Notice();
 
             Title t = new Title() { ID = 1, Parent = 0, TContent = new Content(){ ConContent = "一级标题", ConType = "一级标题", TitleIndex = 0}};

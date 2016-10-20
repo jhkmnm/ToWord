@@ -294,6 +294,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFawen);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormNotice";
             this.Text = "通知模板";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormNotice_FormClosed);

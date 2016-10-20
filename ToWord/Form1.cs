@@ -18,15 +18,18 @@ namespace ToWord
     public partial class Form1 : Form
     {
         Config config;
+        Notice n = new Notice();        
+        WordUtil word;
 
         public Form1()
         {
             InitializeComponent();
+
+            ddlWord.Items.Add("新增");
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {            
             #region
             //            正文
             //1.发文字号[方正仿宋 居中三号，〔〕]  固定
@@ -72,8 +75,9 @@ namespace ToWord
                     new Style { FontName = "二级标题", Font = "方正楷体_GBK", Size = font3, Indent = 2, NumberFormat = "（{0}） " },
                     new Style { FontName = "三级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "{0}." },
                     new Style { FontName = "四级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "（{0}）" },
-                    new Style { FontName = "正文附件", Font = "方正仿宋_GBK", Size = font3, Indent = 2},
-                    new Style { FontName = "落款"},
+                    new Style { FontName = "附件列表", Font = "方正仿宋_GBK", Size = font3, Indent = 2},
+                    new Style { FontName = "正文附件", Font = "方正黑体_GBK", Size = font3, Indent = 2},
+                    new Style { FontName = "落款", Font = "方正仿宋_GBK", Size = font3, Align = MSWord.WdParagraphAlignment.wdAlignParagraphRight},
                     new Style { FontName = "日期", Font = "方正仿宋_GBK", Size = font3, Align = MSWord.WdParagraphAlignment.wdAlignParagraphRight, Indent = 4},
                     new Style { FontName = "发送至", Font = "方正仿宋_GBK", Size = font3, Indent = 2},
                     new Style { FontName = "附件中附件", Font = "方正黑体_GBK", Size = font3},
@@ -132,35 +136,11 @@ namespace ToWord
             //wordDoc.Close(ref Nothing, ref Nothing, ref Nothing);
             //wordApp.Quit(ref Nothing, ref Nothing, ref Nothing);
             ////Utilities.XmlHelper.XmlSerializeToFile(config, "config.xml", Encoding.UTF8);      
-            #endregion
-
-            return;
-
-
-            List<Content> contents = new List<Content>();
-            contents.AddRange(
-                new[]
-                {
-                    new Content { ConType = "标题", ConContent = "国网重庆市电力公司永川供电分公司文件" },
-                    new Content { ConType = "发文字号", ConContent = "发文字号"},
-                    new Content { ConType = "题目", ConContent = "国网重庆市电力公司永川供电分公司关于XX的通知"},
-                    new Content { ConType = "正文", ConContent = "（首行缩进2个字符）x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x〔2013〕x号 x x x x x x x x。（正文 方正仿宋 三号）"},
-                    new Content { ConType = "一级标题", ConContent = "一、一级标题", TitleIndex = 0},
-                    new Content { ConType = "二级标题", ConContent = "（一）二级标题", TitleIndex = 0},
-                    new Content { ConType = "三级标题", ConContent = "1.三级标题", TitleIndex = 0},
-                    new Content { ConType = "正文", ConContent = "x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x"},
-                    new Content { ConType = "四级标题", ConContent = "（1）四级标题", TitleIndex = 0},
-                    new Content { ConType = "正文", ConContent = "x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x"},
-                    new Content { ConType = "一级标题", ConContent = "一级标题", TitleIndex = 1}
-                }
-            );
-
-            
+            #endregion            
         }
 
         private void btnNotice_Click(object sender, EventArgs e)
-        {
-            Notice n = new Notice();
+        {            
             FormNotice f = new FormNotice(n);
             if(f.ShowDialog() == DialogResult.OK)
             {
@@ -171,7 +151,7 @@ namespace ToWord
 
         private void ExportWord(Notice n)
         {
-            WordUtil word = new ToWord.WordUtil();
+            word = new ToWord.WordUtil();
 
             var biaoti = new Content { ConType = "标题", ConContent = "国网重庆市电力公司永川供电分公司文件" };
             var style = config.FontStyles.Find(w => w.FontName == biaoti.ConType);
@@ -216,24 +196,171 @@ namespace ToWord
                 word.AddContent(v.TContent.ConContent, style);
             }
 
-            //foreach (var content in contents)
-            //{
-            //    var style = config.FontStyles.Find(w => w.FontName == content.ConType);
-            //    if (content.ConType.EndsWith("级标题"))
-            //    {
-            //        string index = (content.ConType == "一级标题" || content.ConType == "二级标题") ? titleA[content.TitleIndex] : titleB[content.TitleIndex];
-            //        style.NumberFormat = string.Format(style.NumberFormat, index);
-            //        word.AddTitle(content.ConContent, style);
-            //    }
-            //    else if (content.ConType == "")//附件
-            //    { }
-            //    else
-            //    {
-            //        word.AddContent(content.ConContent, style);
-            //    }
-            //}
+            //空一行
+            word.AddLine();
+
+            //附件列表
+            int index = 1;
+            style = config.FontStyles.Find(w => w.FontName == "附件列表");
+            n.Appendixs.ForEach(item => {
+                if (index == 1)
+                    word.AddContent(string.Format("附件： {0}. {1}", index, item.Title), style);
+                else
+                    word.AddContent(string.Format("　　　 {0}. {1}", index, item.Title), style);
+            });
+
+            style = config.FontStyles.Find(w => w.FontName == "落款");
+            word.AddContent("国网重庆市电力公司永川供电分公司", style);
+
+            style = config.FontStyles.Find(w => w.FontName == "日期");
+            word.AddContent(DateTime.Today.ToString("yyyy年MM月dd日"), style);
+
+            //空一行
+            word.AddLine();
+
+            style = config.FontStyles.Find(w => w.FontName == "发送至");
+            word.AddContent("国网重庆市电力公司永川供电分公司", style);
+
+            index = 1;
+            foreach(var appendix in n.Appendixs)
+            {
+                style = config.FontStyles.Find(w => w.FontName == "正文附件");
+                word.AddContent("附件"+index.ToString(), style);
+
+                if(appendix.Type == 0)
+                {
+                    #region 正文中的文字附件
+                    var wa = (WordsAppendix)appendix;
+
+                    style = config.FontStyles.Find(w => w.FontName == wa.Timu.ConType);
+                    word.AddContent(wa.Timu.ConContent, style);
+
+                    style = config.FontStyles.Find(w => w.FontName == wa.TZhenwen.ConType);
+                    word.AddContent(wa.TZhenwen.ConContent, style);
+
+                    foreach (var v in wa.Zhenwen)
+                    {
+                        style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
+                        if (v.TContent.ConType == "一级标题")
+                        {
+                            v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + v.TContent.ConContent;
+                        }
+                        else if (v.TContent.ConType == "二级标题")
+                        {
+                            v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
+                        }
+                        else if (v.TContent.ConType == "三级标题")
+                        {
+                            v.TContent.ConContent = string.Format(style.NumberFormat, titleA[c++]) + v.TContent.ConContent;
+                        }
+                        else if (v.TContent.ConType == "四级标题")
+                        {
+                            v.TContent.ConContent = string.Format(style.NumberFormat, titleA[d++]) + v.TContent.ConContent;
+                        }
+                        word.AddContent(v.TContent.ConContent, style);
+                    }
+
+                    #region 附件中的附件
+                    foreach (var waf in wa.Appendixs)
+                    {
+                        style = config.FontStyles.Find(w => w.FontName == "附件中附件");
+                        word.AddContent("附", style);
+
+                        if (waf.Type == 0)
+                        {
+                            var waa = (WordsAppendix)waf;
+
+                            style = config.FontStyles.Find(w => w.FontName == waa.Timu.ConType);
+                            word.AddContent(waa.Timu.ConContent, style);
+
+                            style = config.FontStyles.Find(w => w.FontName == waa.TZhenwen.ConType);
+                            word.AddContent(waa.TZhenwen.ConContent, style);
+
+                            foreach (var waav in waa.Zhenwen)
+                            {
+                                style = config.FontStyles.Find(w => w.FontName == waav.TContent.ConType);
+                                if (waav.TContent.ConType == "一级标题")
+                                {
+                                    waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + waav.TContent.ConContent;
+                                }
+                                else if (waav.TContent.ConType == "二级标题")
+                                {
+                                    waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + waav.TContent.ConContent;
+                                }
+                                else if (waav.TContent.ConType == "三级标题")
+                                {
+                                    waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[c++]) + waav.TContent.ConContent;
+                                }
+                                else if (waav.TContent.ConType == "四级标题")
+                                {
+                                    waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[d++]) + waav.TContent.ConContent;
+                                }
+                                word.AddContent(waav.TContent.ConContent, style);
+                            }
+                        }
+                    }
+                    #endregion
+
+                    #endregion
+                }
+                else
+                {
+                    var fa = (FileAppendix)appendix;
+                    style = config.FontStyles.Find(w => w.FontName == "附件题目");
+                    word.AddContent(fa.Title, style);
+
+                    if(fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+                    {
+                        word.AddExcel(fa.FilePath);
+                    }
+                    else
+                    {
+                        word.AddImage(fa.FilePath);
+                    }
+                }
+            }
+
+            //结尾
+            style = config.FontStyles.Find(w => w.FontName == n.Chaosong.ConType);
+            word.AddTable(n.Chaosong.ConContent, style);            
+            
             word.InsertPageNumber("Rfight", true);
             word.SaveAndClose("D:\\123.doc");
+        }
+
+        private void AddAppendix(List<Appendix> appendixs)
+        {
+            
+        }
+
+        private void btnWord_Click(object sender, EventArgs e)
+        {
+            WordsAppendix words = new WordsAppendix();
+            FormWordsAppendix f = new FormWordsAppendix(words);
+            if(f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                f.Appendix.Type = 0;
+                f.Appendix.Title = f.Appendix.Timu.ConContent;
+                n.Appendixs.Add(f.Appendix);
+                ddlWord.Items.Add("【文字附件】"+f.Appendix.Title);
+            }
+        }
+
+        private void btnAppendix_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog file = new OpenFileDialog())
+            {
+                if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    FileAppendix f = new FileAppendix();
+                    f.Type = 1;
+                    f.Title = file.FileName;
+                    f.FileName = new Content() { ConType = "附件", ConContent = file.FileName };
+                    f.FilePath = file.FileName;
+                    n.Appendixs.Add(f);
+                    ddlWord.Items.Add("【文本】"+f.Title);
+                }
+            }
         }
     }
 
@@ -273,6 +400,8 @@ namespace ToWord
         public Content TContent { get; set; }
 
         public int Parent { get; set; }
+
+        public List<Appendix> Appendixs { get; set; }
     }
 
     public class Notice
@@ -293,10 +422,12 @@ namespace ToWord
 
         public Content Chaosong { get; set; }
 
-        public Content Floot { get; set; }
+        public Content Fasong { get; set; }
+
+        public List<Appendix> Appendixs { get; set; }
     }
 
-    public class WordsAppendix
+    public class WordsAppendix : Appendix
     {
         public Content Timu { get; set; }
 
@@ -304,14 +435,25 @@ namespace ToWord
 
         public List<Title> Zhenwen { get; set; }
 
-        public List<WordsAppendix> WAppendixs { get; set; }
+        public List<Appendix> Appendixs { get; set; }
 
-        public List<FileAppendix> FAppendixs { get; set; }
+        //public List<WordsAppendix> WAppendixs { get; set; }
+
+        //public List<FileAppendix> FAppendixs { get; set; }
     }
 
-    public class FileAppendix
+    public class FileAppendix : Appendix
     {
-        public string FileName { get; set; }
+        public Content FileName { get; set; }
         public string FilePath { get; set; }
+    }
+
+    public abstract class Appendix
+    {
+        /// <summary>
+        /// 0:文字 1:文件
+        /// </summary>
+        public int Type;
+        public string Title;
     }
 }

@@ -69,6 +69,12 @@
     <Compile Include="FormNotice.Designer.cs">
       <DependentUpon>FormNotice.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormWordsAppendix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWordsAppendix.Designer.cs">
+      <DependentUpon>FormWordsAppendix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Config.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormNotice.resx">
       <DependentUpon>FormNotice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWordsAppendix.resx">
+      <DependentUpon>FormWordsAppendix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

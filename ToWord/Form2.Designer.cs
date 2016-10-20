@@ -39,6 +39,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // treeView1
@@ -63,7 +64,7 @@
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode4});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(420, 528);
+            this.treeView1.Size = new System.Drawing.Size(274, 383);
             this.treeView1.TabIndex = 0;
             // 
             // imageList1
@@ -75,11 +76,20 @@
             this.imageList1.Images.SetKeyName(2, "1476870707_691928 - 副本 (3).png");
             this.imageList1.Images.SetKeyName(3, "1476870707_691928 - 副本.png");
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(476, 103);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(161, 20);
+            this.comboBox1.TabIndex = 1;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 630);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.treeView1);
             this.Name = "Form2";
             this.Text = "Form2";
@@ -91,5 +101,6 @@
 
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -36,3 +36,4 @@ E:\Dev\ToWord\ToWord\bin\Debug\ThoughtWorks.QRCode.dll
 E:\Dev\ToWord\ToWord\bin\Debug\Microsoft.Office.Interop.Word.dll
 E:\Dev\ToWord\ToWord\obj\Debug\ToWord.Form2.resources
 E:\Dev\ToWord\ToWord\obj\Debug\ToWord.FormNotice.resources
+E:\Dev\Self\ToWord\ToWord\obj\Debug\ToWord.FormWordsAppendix.resources

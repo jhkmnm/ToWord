@@ -33,6 +33,7 @@ namespace ToWord
             InitializeComponent();
 
             _notice = notice;
+            Init();
         }
 
         private void Init()
