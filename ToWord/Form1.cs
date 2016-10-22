@@ -25,7 +25,10 @@ namespace ToWord
         {
             InitializeComponent();
 
-            ddlWord.Items.Add("新增");
+            DDLSource source = new DDLSource() { Index = 0, Text = "新增" };
+            ddlWord.ValueMember = "Index";
+            ddlWord.DisplayMember = "Text";
+            ddlWord.Items.Add(source);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -369,14 +372,36 @@ namespace ToWord
 
         private void btnWord_Click(object sender, EventArgs e)
         {
-            WordsAppendix words = new WordsAppendix();
-            FormWordsAppendix f = new FormWordsAppendix(words);
+            var index = (int)ddlWord.SelectedValue;
+
+            WordsAppendix words;
+            FormWordsAppendix f;
+
+            if(index == 0)
+            {
+                words = new WordsAppendix();
+            }
+            else
+            {
+                words = (WordsAppendix)n.Appendixs[index];
+            }
+            f = new FormWordsAppendix(words);
+            
             if(f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 f.Appendix.Type = 0;
                 f.Appendix.Title = f.Appendix.Timu.ConContent;
                 n.Appendixs.Add(f.Appendix);
-                ddlWord.Items.Add("【文字附件】"+f.Appendix.Title);
+
+                if (index == 0)
+                {
+                    DDLSource source = new DDLSource() { Index = n.Appendixs.Count - 1, Text = "【文字】" + f.Appendix.Title };
+                    ddlWord.Items.Add(source);
+                }
+                else
+                {
+                    //ddlWord.SelectedItem
+                }
             }
         }
 
@@ -392,8 +417,19 @@ namespace ToWord
                     f.FileName = new Content() { ConType = "附件", ConContent = file.FileName };
                     f.FilePath = file.FileName;
                     n.Appendixs.Add(f);
-                    ddlWord.Items.Add("【文本】"+f.Title);
+                    DDLSource source = new DDLSource() { Index = n.Appendixs.Count - 1, Text = "【文件】" + f.Title };
+                    ddlWord.Items.Add(source);
                 }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(ddlWord.SelectedIndex > 0)
+            {
+                var index = (int)ddlWord.SelectedValue;
+                n.Appendixs.RemoveAt(index);
+                ddlWord.Items.RemoveAt(ddlWord.SelectedIndex);
             }
         }
     }
@@ -489,5 +525,11 @@ namespace ToWord
         /// </summary>
         public int Type;
         public string Title;
+    }
+
+    public class DDLSource
+    {
+        public string Text { get; set; }
+        public int Index { get; set; }
     }
 }

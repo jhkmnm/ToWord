@@ -18,6 +18,13 @@ namespace ToWord
         {
             InitializeComponent();
 
+            DDLSource source = new DDLSource() { Text = "新增", Index = 0 };
+            comboBox1.ValueMember = "Index";
+            comboBox1.DisplayMember = "Text";
+            comboBox1.Items.Add(source);
+
+            return;
+
             WordUtil word = new WordUtil();
             var style = new Model.Style { FontName = "抄送", Font = "方正仿宋_GBK", Size = 14f};
             word.AddTable("x x x x x x x x，x x x x x x x x。", style);
@@ -73,6 +80,12 @@ namespace ToWord
 
                 InitTree(no);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ((DDLSource)comboBox1.SelectedItem).Text = "基本面";
+            ((DDLSource)comboBox1.SelectedItem).Index = 3;                             
         }
     }
 }
