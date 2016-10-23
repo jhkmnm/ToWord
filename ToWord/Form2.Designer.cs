@@ -41,6 +41,8 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.dDLSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dDLSourceBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // treeView1
@@ -79,12 +81,15 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DataSource = this.dDLSourceBindingSource;
+            this.comboBox1.DisplayMember = "Text";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(476, 103);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(161, 20);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.ValueMember = "Index";
             // 
             // button1
             // 
@@ -96,6 +101,10 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // dDLSourceBindingSource
+            // 
+            this.dDLSourceBindingSource.DataSource = typeof(ToWord.DDLSource);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -106,6 +115,7 @@
             this.Controls.Add(this.treeView1);
             this.Name = "Form2";
             this.Text = "Form2";
+            ((System.ComponentModel.ISupportInitialize)(this.dDLSourceBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -116,5 +126,6 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.BindingSource dDLSourceBindingSource;
     }
 }

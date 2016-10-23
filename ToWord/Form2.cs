@@ -19,9 +19,10 @@ namespace ToWord
             InitializeComponent();
 
             DDLSource source = new DDLSource() { Text = "新增", Index = 0 };
-            comboBox1.ValueMember = "Index";
-            comboBox1.DisplayMember = "Text";
-            comboBox1.Items.Add(source);
+            //comboBox1.ValueMember = "Index";
+            //comboBox1.DisplayMember = "Text";
+            //comboBox1.Items.Add(source);
+            dDLSourceBindingSource.DataSource = source;
 
             return;
 
@@ -84,8 +85,12 @@ namespace ToWord
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ((DDLSource)comboBox1.SelectedItem).Text = "基本面";
-            ((DDLSource)comboBox1.SelectedItem).Index = 3;                             
+            dDLSourceBindingSource.List.Add(new DDLSource() { Text = "基本面", Index = 1 });
+            //((DDLSource)dDLSourceBindingSource.DataSource).Text = "基本面";
+            //comboBox1.DataSource = null;
+            //comboBox1.DataSource = dDLSourceBindingSource;
+            //comboBox1.ValueMember = "Index";
+            //comboBox1.DisplayMember = "Text";                          
         }
     }
 }

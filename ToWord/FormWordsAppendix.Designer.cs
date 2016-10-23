@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -46,14 +47,19 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtTimu = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.ddlWord = new System.Windows.Forms.ComboBox();
+            this.dDLSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnAppendix = new System.Windows.Forms.Button();
+            this.btnWord = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dDLSourceBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label8
             // 
             this.label8.AutoEllipsis = true;
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(14, 636);
+            this.label8.Location = new System.Drawing.Point(10, 559);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(210, 21);
             this.label8.TabIndex = 47;
@@ -63,7 +69,7 @@
             // 
             this.label7.AutoEllipsis = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(14, 604);
+            this.label7.Location = new System.Drawing.Point(10, 527);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(210, 32);
             this.label7.TabIndex = 46;
@@ -73,7 +79,7 @@
             // 
             this.label6.AutoEllipsis = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(14, 562);
+            this.label6.Location = new System.Drawing.Point(10, 485);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(210, 43);
             this.label6.TabIndex = 45;
@@ -81,7 +87,7 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(137, 191);
+            this.btnDel.Location = new System.Drawing.Point(137, 199);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(75, 23);
             this.btnDel.TabIndex = 44;
@@ -100,7 +106,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(32, 191);
+            this.btnOK.Location = new System.Drawing.Point(32, 199);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 42;
@@ -113,7 +119,7 @@
             this.txtContent.Location = new System.Drawing.Point(12, 234);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
-            this.txtContent.Size = new System.Drawing.Size(212, 317);
+            this.txtContent.Size = new System.Drawing.Size(212, 248);
             this.txtContent.TabIndex = 41;
             // 
             // button7
@@ -131,15 +137,15 @@
             this.treeView1.CheckBoxes = true;
             this.treeView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(235, 164);
+            this.treeView1.Location = new System.Drawing.Point(235, 174);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(660, 584);
+            this.treeView1.Size = new System.Drawing.Size(660, 574);
             this.treeView1.TabIndex = 39;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // btnTzhenwen
             // 
-            this.btnTzhenwen.Location = new System.Drawing.Point(513, 120);
+            this.btnTzhenwen.Location = new System.Drawing.Point(522, 120);
             this.btnTzhenwen.Name = "btnTzhenwen";
             this.btnTzhenwen.Size = new System.Drawing.Size(75, 23);
             this.btnTzhenwen.TabIndex = 38;
@@ -149,7 +155,7 @@
             // 
             // btnBiaoti4
             // 
-            this.btnBiaoti4.Location = new System.Drawing.Point(402, 120);
+            this.btnBiaoti4.Location = new System.Drawing.Point(411, 120);
             this.btnBiaoti4.Name = "btnBiaoti4";
             this.btnBiaoti4.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti4.TabIndex = 37;
@@ -159,7 +165,7 @@
             // 
             // btnBiaoti3
             // 
-            this.btnBiaoti3.Location = new System.Drawing.Point(288, 120);
+            this.btnBiaoti3.Location = new System.Drawing.Point(297, 120);
             this.btnBiaoti3.Name = "btnBiaoti3";
             this.btnBiaoti3.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti3.TabIndex = 36;
@@ -169,7 +175,7 @@
             // 
             // btnBiaoti2
             // 
-            this.btnBiaoti2.Location = new System.Drawing.Point(181, 120);
+            this.btnBiaoti2.Location = new System.Drawing.Point(190, 120);
             this.btnBiaoti2.Name = "btnBiaoti2";
             this.btnBiaoti2.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti2.TabIndex = 35;
@@ -179,7 +185,7 @@
             // 
             // btnBiaoti1
             // 
-            this.btnBiaoti1.Location = new System.Drawing.Point(74, 120);
+            this.btnBiaoti1.Location = new System.Drawing.Point(83, 120);
             this.btnBiaoti1.Name = "btnBiaoti1";
             this.btnBiaoti1.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti1.TabIndex = 34;
@@ -221,22 +227,63 @@
             this.label3.TabIndex = 29;
             this.label3.Text = "题目:";
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("宋体", 9F);
+            this.button2.Location = new System.Drawing.Point(76, 689);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(84, 34);
+            this.button2.TabIndex = 53;
+            this.button2.Text = "删除附件";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // ddlWord
+            // 
+            this.ddlWord.DataSource = this.dDLSourceBindingSource;
+            this.ddlWord.DisplayMember = "Text";
+            this.ddlWord.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlWord.FormattingEnabled = true;
+            this.ddlWord.Location = new System.Drawing.Point(14, 609);
+            this.ddlWord.Name = "ddlWord";
+            this.ddlWord.Size = new System.Drawing.Size(212, 20);
+            this.ddlWord.TabIndex = 52;
+            this.ddlWord.ValueMember = "Index";
+            // 
+            // dDLSourceBindingSource
+            // 
+            this.dDLSourceBindingSource.DataSource = typeof(ToWord.DDLSource);
+            // 
             // btnAppendix
             // 
-            this.btnAppendix.Location = new System.Drawing.Point(628, 120);
+            this.btnAppendix.Font = new System.Drawing.Font("宋体", 9F);
+            this.btnAppendix.Location = new System.Drawing.Point(140, 635);
             this.btnAppendix.Name = "btnAppendix";
-            this.btnAppendix.Size = new System.Drawing.Size(75, 23);
-            this.btnAppendix.TabIndex = 48;
+            this.btnAppendix.Size = new System.Drawing.Size(84, 34);
+            this.btnAppendix.TabIndex = 51;
             this.btnAppendix.Text = "附件";
             this.btnAppendix.UseVisualStyleBackColor = true;
             this.btnAppendix.Click += new System.EventHandler(this.btnAppendix_Click);
+            // 
+            // btnWord
+            // 
+            this.btnWord.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnWord.Location = new System.Drawing.Point(14, 635);
+            this.btnWord.Name = "btnWord";
+            this.btnWord.Size = new System.Drawing.Size(84, 34);
+            this.btnWord.TabIndex = 50;
+            this.btnWord.Text = "文字附件";
+            this.btnWord.UseVisualStyleBackColor = true;
+            this.btnWord.Click += new System.EventHandler(this.btnWord_Click);
             // 
             // FormWordsAppendix
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 754);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.ddlWord);
             this.Controls.Add(this.btnAppendix);
+            this.Controls.Add(this.btnWord);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -259,6 +306,8 @@
             this.MaximizeBox = false;
             this.Name = "FormWordsAppendix";
             this.Text = "文字附件";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormWordsAppendix_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.dDLSourceBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,6 +333,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtTimu;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox ddlWord;
         private System.Windows.Forms.Button btnAppendix;
+        private System.Windows.Forms.Button btnWord;
+        private System.Windows.Forms.BindingSource dDLSourceBindingSource;
     }
 }

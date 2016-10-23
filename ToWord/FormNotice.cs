@@ -38,17 +38,23 @@ namespace ToWord
 
         private void Init()
         {
-            if (_notice == null) return;
+            if (_notice == null)
+            {
+                _notice = new Notice();
+                return;
+            } 
 
             txtFawen.Text = _notice.Fawen.ConContent;
             txtTimu.Text = _notice.Timu.ConContent;
             txtBumen.Text = _notice.Bumen.ConContent;
             txtZhenwen.Text = _notice.BumenZhenwen.ConContent;
+            txtChaosong.Text = _notice.Chaosong.ConContent;
 
             if (_notice.Zhenwen != null)
             {
                 InitTree(null);
                 _notice.Zhenwen.ForEach(f => id = id == 0 ? f.ID : (f.ID > id ? f.ID : id));
+                treeView1.ExpandAll();
             }
         }
 
@@ -110,10 +116,14 @@ namespace ToWord
             if (_notice.BumenZhenwen == null)
                 _notice.BumenZhenwen = new Content() { ConType = "正文" };
 
+            if (_notice.Chaosong == null)
+                _notice.Chaosong = new Content { ConType = "抄送" };
+
             _notice.Fawen.ConContent = txtFawen.Text;
             _notice.Timu.ConContent = txtTimu.Text;
             _notice.Bumen.ConContent = txtBumen.Text;
             _notice.BumenZhenwen.ConContent = txtZhenwen.Text;
+            _notice.Chaosong.ConContent = txtChaosong.Text;
             GetTree(treeView1.Nodes);
         }
 
@@ -201,8 +211,8 @@ namespace ToWord
         {
             if(DelCheck())
             {
-                DeleteTreeNode();
-                selectedNode = null;
+                DeleteTreeNode();                
+                selectedNode = selectedNode.PrevNode;
             }
         }
 
@@ -226,18 +236,18 @@ namespace ToWord
         private void btnBiaoti1_Click(object sender, EventArgs e)
         {
             isadd = true;
-            int _id = 1;
-            if(_title != null)
-            {
-                _id = ++id;
-            }
+            //int _id = 1;
+            //if(_title != null)
+            //{
+            //    _id = ++id;
+            //}
             index = 1;
-            SetTitle(_id);
+            SetTitle(++id);
         }
 
         private void SetTitle(int id)
-        {
-            _title = new Title() { ID = id, TContent = new Content() { ConType = stitle[index] }, Parent = 0 };
+        {            
+            _title = new Title() { ID = id, TContent = new Content() { ConType = stitle[index] }, Parent = index == 1 ? 0 : ((Title)selectedNode.Tag).ID };
             txtContent.Text = "";
             txtContent.Focus();
         }

@@ -22,16 +22,33 @@ namespace ToWord
         private TreeNode selectedNode;
         public WordsAppendix Appendix { get { return _appendix; } }
 
-        public FormWordsAppendix(WordsAppendix appendix)
+        private int _formIndex = 0; 
+
+        public FormWordsAppendix(WordsAppendix appendix, int formindex = 0)
         {
             InitializeComponent();
 
             _appendix = appendix;
+            _formIndex = formindex;
+
+            if (_formIndex == 1)
+                btnWord.Visible = false;
+
+            DDLSource source = new DDLSource { Index = -1, Text = "新增" };
+            dDLSourceBindingSource.DataSource = source;
+
+            BindDDL();
+
+            Init();
         }
 
         private void Init()
         {
-            if (_appendix == null) return;
+            if (_appendix == null)
+            {
+                _appendix = new WordsAppendix();
+                return;
+            }
 
             txtTimu.Text = _appendix.Timu.ConContent;
             txtZhenwen.Text = _appendix.TZhenwen.ConContent;
@@ -40,6 +57,15 @@ namespace ToWord
             {
                 InitTree(null);
                 _appendix.Zhenwen.ForEach(f => id = id == 0 ? f.ID : (f.ID > id ? f.ID : id));
+                treeView1.ExpandAll();                
+            }
+
+            if(_appendix.Appendixs != null)
+            {
+                int i = 0;
+                _appendix.Appendixs.ForEach(item => {
+                    dDLSourceBindingSource.Add(new DDLSource() { Index = i++, Text = item.Title });
+                });
             }
         }
 
@@ -186,7 +212,7 @@ namespace ToWord
             if (DelCheck())
             {
                 DeleteTreeNode();
-                selectedNode = null;
+                selectedNode = selectedNode.PrevNode;
             }
         }
 
@@ -211,22 +237,18 @@ namespace ToWord
         private void btnBiaoti1_Click(object sender, EventArgs e)
         {
             isadd = true;
-            int _id = 1;
-            if (_title != null)
-            {
-                _id = ++id;
-            }
+            //int _id = 1;
+            //if (_title != null)
+            //{
+            //    _id = ++id;
+            //}
             index = 1;
-            SetTitle(_id);
+            SetTitle(++id);
         }
 
         private void SetTitle(int id)
         {
-            int parent = 0;
-            if (index > 1)
-                parent = _title.ID;
-
-            _title = new Title() { ID = id, TContent = new Content() { ConType = stitle[index] }, Parent = parent };
+            _title = new Title() { ID = id, TContent = new Content() { ConType = stitle[index] }, Parent = index == 1 ? 0 : ((Title)selectedNode.Tag).ID };
             txtContent.Text = "";
             txtContent.Focus();
         }
@@ -271,25 +293,94 @@ namespace ToWord
 
         private void btnAppendix_Click(object sender, EventArgs e)
         {
+            var index = (int)ddlWord.SelectedValue;
+
+            FileAppendix f;
+
+            if (index == -1)
+            {
+                f = new FileAppendix();
+            }
+            else
+            {
+                f = (FileAppendix)_appendix.Appendixs[index];
+            }
+
             using (OpenFileDialog file = new OpenFileDialog())
             {
-                if(file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    _title = new Title() { ID = ++id, TContent = new Content() { ConType = "附件中附件" }, Parent = 0 };
-                    _title.TContent.ConContent = file.FileName;
-
-                    if (selectedNode == null)
+                    if (index == -1)
                     {
-                        TreeNode n = new TreeNode() { Text = file.FileName, Tag = _title };
-                        treeView1.Nodes.Add(n);
+                        if (_appendix.Appendixs == null)
+                            _appendix.Appendixs = new List<ToWord.Appendix>();
+
+                        f.Type = 1;
+                        f.Title = file.SafeFileName.Substring(0, file.SafeFileName.LastIndexOf("."));
+                        f.FileName = new Content() { ConType = "附件中附件", ConContent = file.FileName };
+                        f.FilePath = file.FileName;
+                        _appendix.Appendixs.Add(f);
+                        DDLSource source = new DDLSource() { Index = _appendix.Appendixs.Count - 1, Text = "【文件】" + f.Title };
+                        dDLSourceBindingSource.List.Add(source);
                     }
                     else
                     {
-                        treeView1.SelectedNode.Tag = _title;
-                        treeView1.SelectedNode.Text = _title.TContent.ConContent;
+                        _appendix.Appendixs[index] = f;
+                        ((DDLSource)dDLSourceBindingSource.Current).Text = "【文件】" + f.Title;
+                        BindDDL();
                     }
                 }
             }
+        }
+
+        private void btnWord_Click(object sender, EventArgs e)
+        {
+            var index = (int)ddlWord.SelectedValue;
+
+            WordsAppendix words = null;
+            FormWordsAppendix f;
+
+            if (index >= 0)
+            {
+                words = (WordsAppendix)_appendix.Appendixs[index];
+            }
+            f = new FormWordsAppendix(words, _formIndex + 1);
+
+            if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (f.Appendix.Timu == null) return;
+
+                f.Appendix.Type = 0;
+                f.Appendix.Title = f.Appendix.Timu.ConContent;
+
+                if (index == -1)
+                {
+                    if (_appendix.Appendixs == null)
+                        _appendix.Appendixs = new List<ToWord.Appendix>();
+
+                    dDLSourceBindingSource.List.Add(new DDLSource() { Index = _appendix.Appendixs.Count - 1, Text = "【文字】" + f.Appendix.Title });
+                    _appendix.Appendixs.Add(f.Appendix);
+                }
+                else
+                {
+                    _appendix.Appendixs[index] = f.Appendix;
+                    ((DDLSource)dDLSourceBindingSource.Current).Text = "【文字】" + f.Appendix.Title;
+                    BindDDL();
+                }
+            }
+        }
+
+        private void BindDDL()
+        {
+            ddlWord.DataSource = null;
+            ddlWord.DataSource = dDLSourceBindingSource;
+            ddlWord.ValueMember = "Index";
+            ddlWord.DisplayMember = "Text";
+        }
+
+        private void FormWordsAppendix_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

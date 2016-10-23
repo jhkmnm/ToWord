@@ -11,7 +11,6 @@ E:\Dev\ToWord\ToWord\obj\Debug\ToWord.csproj.GenerateResource.Cache
 E:\Dev\ToWord\ToWord\obj\Debug\ToWord.exe
 E:\Dev\ToWord\ToWord\obj\Debug\ToWord.pdb
 E:\Dev\ToWord\ToWord\obj\Debug\ToWord.csproj.ResolveComReference.cache
-E:\Dev\ToWord\ToWord\obj\Debug\ToWord.csprojResolveAssemblyReference.cache
 E:\Dev\Self\ToWord\ToWord\bin\Debug\ToWord.exe.config
 E:\Dev\Self\ToWord\ToWord\bin\Debug\ToWord.exe
 E:\Dev\Self\ToWord\ToWord\bin\Debug\ToWord.pdb
@@ -31,9 +30,9 @@ E:\Dev\Self\ToWord\ToWord\obj\Debug\ToWord.pdb
 E:\Dev\Self\ToWord\ToWord\bin\Debug\SRDFAA.Fram.dll
 E:\Dev\Self\ToWord\ToWord\bin\Debug\DBManager.dll
 E:\Dev\Self\ToWord\ToWord\bin\Debug\ThoughtWorks.QRCode.dll
-E:\Dev\ToWord\ToWord\bin\Debug\DBManager.dll
-E:\Dev\ToWord\ToWord\bin\Debug\ThoughtWorks.QRCode.dll
 E:\Dev\ToWord\ToWord\bin\Debug\Microsoft.Office.Interop.Word.dll
 E:\Dev\ToWord\ToWord\obj\Debug\ToWord.Form2.resources
 E:\Dev\ToWord\ToWord\obj\Debug\ToWord.FormNotice.resources
 E:\Dev\Self\ToWord\ToWord\obj\Debug\ToWord.FormWordsAppendix.resources
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.FormWordsAppendix.resources
+E:\Dev\ToWord\ToWord\obj\Debug\ToWord.csprojResolveAssemblyReference.cache

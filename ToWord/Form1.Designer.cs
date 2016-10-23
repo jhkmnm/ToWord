@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnNotice = new System.Windows.Forms.Button();
             this.btnWord = new System.Windows.Forms.Button();
             this.btnAppendix = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.ddlWord = new System.Windows.Forms.ComboBox();
+            this.dDLSourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button2 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dDLSourceBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNotice
@@ -78,15 +81,23 @@
             this.btnExport.TabIndex = 4;
             this.btnExport.Text = "导出";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // ddlWord
             // 
+            this.ddlWord.DataSource = this.dDLSourceBindingSource;
+            this.ddlWord.DisplayMember = "Text";
             this.ddlWord.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlWord.FormattingEnabled = true;
             this.ddlWord.Location = new System.Drawing.Point(132, 124);
             this.ddlWord.Name = "ddlWord";
             this.ddlWord.Size = new System.Drawing.Size(358, 20);
             this.ddlWord.TabIndex = 5;
+            this.ddlWord.ValueMember = "Index";
+            // 
+            // dDLSourceBindingSource
+            // 
+            this.dDLSourceBindingSource.DataSource = typeof(ToWord.DDLSource);
             // 
             // button2
             // 
@@ -113,6 +124,7 @@
             this.Name = "Form1";
             this.Text = "公文";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dDLSourceBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -125,6 +137,7 @@
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.ComboBox ddlWord;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.BindingSource dDLSourceBindingSource;
     }
 }
 
