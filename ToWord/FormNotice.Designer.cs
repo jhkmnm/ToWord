@@ -179,7 +179,7 @@
             this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(229, 233);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(660, 511);
+            this.treeView1.Size = new System.Drawing.Size(660, 393);
             this.treeView1.TabIndex = 16;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -195,15 +195,15 @@
             // 
             // txtContent
             // 
-            this.txtContent.Location = new System.Drawing.Point(6, 299);
+            this.txtContent.Location = new System.Drawing.Point(6, 265);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
-            this.txtContent.Size = new System.Drawing.Size(212, 317);
+            this.txtContent.Size = new System.Drawing.Size(217, 264);
             this.txtContent.TabIndex = 18;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(26, 262);
+            this.btnOK.Location = new System.Drawing.Point(26, 236);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 19;
@@ -222,7 +222,7 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(131, 262);
+            this.btnDel.Location = new System.Drawing.Point(131, 236);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(75, 23);
             this.btnDel.TabIndex = 21;
@@ -234,7 +234,7 @@
             // 
             this.label6.AutoEllipsis = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(8, 627);
+            this.label6.Location = new System.Drawing.Point(8, 536);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(210, 43);
             this.label6.TabIndex = 22;
@@ -244,7 +244,7 @@
             // 
             this.label7.AutoEllipsis = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(8, 669);
+            this.label7.Location = new System.Drawing.Point(8, 576);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(210, 32);
             this.label7.TabIndex = 23;
@@ -254,11 +254,11 @@
             // 
             this.label8.AutoEllipsis = true;
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(8, 701);
+            this.label8.Location = new System.Drawing.Point(8, 605);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(210, 21);
             this.label8.TabIndex = 24;
-            this.label8.Text = "3. 删除: 选中节点->删除按钮->确定";
+            this.label8.Text = "3. 删除: 选中节点->删除按钮";
             // 
             // txtChaosong
             // 
@@ -281,7 +281,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 748);
+            this.ClientSize = new System.Drawing.Size(896, 632);
             this.Controls.Add(this.txtChaosong);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);

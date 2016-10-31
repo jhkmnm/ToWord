@@ -59,7 +59,7 @@
             // 
             this.label8.AutoEllipsis = true;
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(10, 559);
+            this.label8.Location = new System.Drawing.Point(10, 510);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(210, 21);
             this.label8.TabIndex = 47;
@@ -69,7 +69,7 @@
             // 
             this.label7.AutoEllipsis = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(10, 527);
+            this.label7.Location = new System.Drawing.Point(10, 478);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(210, 32);
             this.label7.TabIndex = 46;
@@ -79,7 +79,7 @@
             // 
             this.label6.AutoEllipsis = true;
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(10, 485);
+            this.label6.Location = new System.Drawing.Point(10, 436);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(210, 43);
             this.label6.TabIndex = 45;
@@ -87,7 +87,7 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(137, 199);
+            this.btnDel.Location = new System.Drawing.Point(137, 148);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(75, 23);
             this.btnDel.TabIndex = 44;
@@ -106,7 +106,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(32, 199);
+            this.btnOK.Location = new System.Drawing.Point(32, 148);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 42;
@@ -116,7 +116,7 @@
             // 
             // txtContent
             // 
-            this.txtContent.Location = new System.Drawing.Point(12, 234);
+            this.txtContent.Location = new System.Drawing.Point(12, 183);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
             this.txtContent.Size = new System.Drawing.Size(212, 248);
@@ -124,7 +124,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(784, 120);
+            this.button7.Location = new System.Drawing.Point(784, 113);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 40;
@@ -137,15 +137,15 @@
             this.treeView1.CheckBoxes = true;
             this.treeView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(235, 174);
+            this.treeView1.Location = new System.Drawing.Point(235, 148);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(660, 574);
+            this.treeView1.Size = new System.Drawing.Size(660, 481);
             this.treeView1.TabIndex = 39;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // btnTzhenwen
             // 
-            this.btnTzhenwen.Location = new System.Drawing.Point(522, 120);
+            this.btnTzhenwen.Location = new System.Drawing.Point(522, 113);
             this.btnTzhenwen.Name = "btnTzhenwen";
             this.btnTzhenwen.Size = new System.Drawing.Size(75, 23);
             this.btnTzhenwen.TabIndex = 38;
@@ -155,7 +155,7 @@
             // 
             // btnBiaoti4
             // 
-            this.btnBiaoti4.Location = new System.Drawing.Point(411, 120);
+            this.btnBiaoti4.Location = new System.Drawing.Point(411, 113);
             this.btnBiaoti4.Name = "btnBiaoti4";
             this.btnBiaoti4.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti4.TabIndex = 37;
@@ -165,7 +165,7 @@
             // 
             // btnBiaoti3
             // 
-            this.btnBiaoti3.Location = new System.Drawing.Point(297, 120);
+            this.btnBiaoti3.Location = new System.Drawing.Point(297, 113);
             this.btnBiaoti3.Name = "btnBiaoti3";
             this.btnBiaoti3.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti3.TabIndex = 36;
@@ -175,7 +175,7 @@
             // 
             // btnBiaoti2
             // 
-            this.btnBiaoti2.Location = new System.Drawing.Point(190, 120);
+            this.btnBiaoti2.Location = new System.Drawing.Point(190, 113);
             this.btnBiaoti2.Name = "btnBiaoti2";
             this.btnBiaoti2.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti2.TabIndex = 35;
@@ -185,7 +185,7 @@
             // 
             // btnBiaoti1
             // 
-            this.btnBiaoti1.Location = new System.Drawing.Point(83, 120);
+            this.btnBiaoti1.Location = new System.Drawing.Point(83, 113);
             this.btnBiaoti1.Name = "btnBiaoti1";
             this.btnBiaoti1.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti1.TabIndex = 34;
@@ -230,7 +230,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("宋体", 9F);
-            this.button2.Location = new System.Drawing.Point(76, 689);
+            this.button2.Location = new System.Drawing.Point(76, 595);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(84, 34);
             this.button2.TabIndex = 53;
@@ -243,7 +243,7 @@
             this.ddlWord.DisplayMember = "Text";
             this.ddlWord.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlWord.FormattingEnabled = true;
-            this.ddlWord.Location = new System.Drawing.Point(14, 609);
+            this.ddlWord.Location = new System.Drawing.Point(14, 532);
             this.ddlWord.Name = "ddlWord";
             this.ddlWord.Size = new System.Drawing.Size(212, 20);
             this.ddlWord.TabIndex = 52;
@@ -256,7 +256,7 @@
             // btnAppendix
             // 
             this.btnAppendix.Font = new System.Drawing.Font("宋体", 9F);
-            this.btnAppendix.Location = new System.Drawing.Point(140, 635);
+            this.btnAppendix.Location = new System.Drawing.Point(140, 558);
             this.btnAppendix.Name = "btnAppendix";
             this.btnAppendix.Size = new System.Drawing.Size(84, 34);
             this.btnAppendix.TabIndex = 51;
@@ -267,7 +267,7 @@
             // btnWord
             // 
             this.btnWord.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnWord.Location = new System.Drawing.Point(14, 635);
+            this.btnWord.Location = new System.Drawing.Point(14, 558);
             this.btnWord.Name = "btnWord";
             this.btnWord.Size = new System.Drawing.Size(84, 34);
             this.btnWord.TabIndex = 50;
@@ -279,7 +279,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 754);
+            this.ClientSize = new System.Drawing.Size(910, 639);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.ddlWord);
             this.Controls.Add(this.btnAppendix);
