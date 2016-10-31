@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ToWord.Model;
 
 namespace ToWord
 {
@@ -23,6 +26,9 @@ namespace ToWord
             //comboBox1.DisplayMember = "Text";
             //comboBox1.Items.Add(source);
             dDLSourceBindingSource.DataSource = source;
+
+            load1();
+            load2();
 
             return;
 
@@ -83,14 +89,58 @@ namespace ToWord
             }
         }
 
+        Config config = null;
+        WordUtil word = null;        
+
         private void button1_Click(object sender, EventArgs e)
         {
-            dDLSourceBindingSource.List.Add(new DDLSource() { Text = "基本面", Index = 1 });
+            word = new WordUtil();
+            word.AddExcel(@"D:\桌面文件\list(20151101--20151130).xls");
+            word.AddExcel(@"D:\桌面文件\重新实名.xlsx");
+
+            using (SaveFileDialog file = new SaveFileDialog())
+            {
+                file.FileName = "公告.doc";
+                file.Filter = @"Word文件|*.doc";
+                if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    word.SaveAndClose(file.FileName);
+                }
+            }                        
+            //dDLSourceBindingSource.List.Add(new DDLSource() { Text = "基本面", Index = 1 });
             //((DDLSource)dDLSourceBindingSource.DataSource).Text = "基本面";
             //comboBox1.DataSource = null;
             //comboBox1.DataSource = dDLSourceBindingSource;
             //comboBox1.ValueMember = "Index";
             //comboBox1.DisplayMember = "Text";                          
+        }
+
+        private void load1()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.gongyejf.com/Common/verify/");
+            request.Timeout = 20000;
+            request.ServicePoint.ConnectionLimit = 100;
+            request.ReadWriteTimeout = 30000;
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode != HttpStatusCode.OK)
+                return;
+            Stream resStream = response.GetResponseStream();
+            this.pictureBox1.Image = new Bitmap(resStream);
+        }
+
+        private void load2()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.gongyejf.com/Common/verify/");
+            request.Timeout = 20000;
+            request.ServicePoint.ConnectionLimit = 100;
+            request.ReadWriteTimeout = 30000;
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode != HttpStatusCode.OK)
+                return;
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+            this.label1.Text = reader.ReadLine();
         }
     }
 }

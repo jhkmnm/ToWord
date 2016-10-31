@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SRDFAA.Fram.Utilities;
+using System.Linq;
 
 namespace ToWord
 {
@@ -248,6 +247,9 @@ namespace ToWord
 
         private void SetTitle(int id)
         {
+            if (index > 1 && selectedNode == null)
+                return;
+
             _title = new Title() { ID = id, TContent = new Content() { ConType = stitle[index] }, Parent = index == 1 ? 0 : ((Title)selectedNode.Tag).ID };
             txtContent.Text = "";
             txtContent.Focus();

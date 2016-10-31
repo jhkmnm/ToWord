@@ -122,7 +122,7 @@ namespace ToWord
             _notice.Fawen.ConContent = txtFawen.Text;
             _notice.Timu.ConContent = txtTimu.Text;
             _notice.Bumen.ConContent = txtBumen.Text;
-            _notice.BumenZhenwen.ConContent = txtZhenwen.Text;
+            _notice.BumenZhenwen.ConContent = txtZhenwen.Text.Replace('[', '〔').Replace(']', '〕').Replace('【', '〔').Replace('】', '〕');
             _notice.Chaosong.ConContent = txtChaosong.Text;
             GetTree(treeView1.Nodes);
         }
@@ -218,19 +218,27 @@ namespace ToWord
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            _title.TContent.ConContent = txtContent.Text;
+            DataVerifier dv = new DataVerifier();
+            dv.Check(_title == null, "请选择要添加标题还是正文!");
 
-            if(isadd)
+            if (dv.Pass)
             {
-                if(AddCheck())
+                _title.TContent.ConContent = txtContent.Text;
+
+                if (isadd)
                 {
-                    AddTreeNode();
+                    if (AddCheck())
+                    {
+                        AddTreeNode();
+                    }
+                }
+                else
+                {
+                    UpTreeNode();
                 }
             }
-            else
-            {
-                UpTreeNode();
-            }
+
+            dv.ShowMsgIfFailed();
         }
 
         private void btnBiaoti1_Click(object sender, EventArgs e)
@@ -246,10 +254,18 @@ namespace ToWord
         }
 
         private void SetTitle(int id)
-        {            
-            _title = new Title() { ID = id, TContent = new Content() { ConType = stitle[index] }, Parent = index == 1 ? 0 : ((Title)selectedNode.Tag).ID };
-            txtContent.Text = "";
-            txtContent.Focus();
+        {
+            DataVerifier dv = new DataVerifier();
+            dv.Check(index != 1 && selectedNode == null, "添加队一级标题以外的内容时请先选择它的上级内容");
+
+            if (dv.Pass)
+            {
+                _title = new Title() { ID = id, TContent = new Content() { ConType = stitle[index] }, Parent = index == 1 ? 0 : ((Title)selectedNode.Tag).ID };
+                txtContent.Text = "";
+                txtContent.Focus();
+            }
+
+            dv.ShowMsgIfFailed();
         }
 
         private void btnBiaoti2_Click(object sender, EventArgs e)

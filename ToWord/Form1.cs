@@ -21,6 +21,8 @@ namespace ToWord
         Config config;
         Notice n;
         WordUtil word;
+        string[] titleA = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "十" };
+        string[] titleB = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 
         public Form1()
         {
@@ -168,11 +170,19 @@ namespace ToWord
             var style = config.FontStyles.Find(w => w.FontName == biaoti.ConType);
             word.AddContent(biaoti.ConContent, style);
 
+            //空一行
+            word.AddLine();
+
             style = config.FontStyles.Find(w => w.FontName == n.Fawen.ConType);
             word.AddContent(n.Fawen.ConContent, style);
 
+            word.AddImage(System.Environment.CurrentDirectory+"\\a.png");
+
             style = config.FontStyles.Find(w => w.FontName == n.Timu.ConType);
             word.AddContent(n.Timu.ConContent, style);
+
+            //空一行
+            word.AddLine();
 
             style = config.FontStyles.Find(w => w.FontName == n.Bumen.ConType);
             word.AddContent(n.Bumen.ConContent, style);
@@ -180,8 +190,6 @@ namespace ToWord
             style = config.FontStyles.Find(w => w.FontName == n.BumenZhenwen.ConType);
             word.AddContent(n.BumenZhenwen.ConContent, style);
 
-            string[] titleA = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "十" };
-            string[] titleB = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
             int a, b, c, d = 0;
             a = b = c = d;
 
@@ -237,219 +245,304 @@ namespace ToWord
             style = config.FontStyles.Find(w => w.FontName == "发送至");
             word.AddContent("国网重庆市电力公司永川供电分公司", style);
 
-            index = 1;
-            if (n.Appendixs != null)
-            {
-                foreach (var appendix in n.Appendixs)
-                {
-                    style = config.FontStyles.Find(w => w.FontName == "正文附件");
-                    word.AddContent("附件" + index.ToString(), style);
+            AddAppendixs(n.Appendixs, 0);
+            #region
+            //index = 1;
+            //if (n.Appendixs != null)
+            //{
+            //    foreach (var appendix in n.Appendixs)
+            //    {
+            //        style = config.FontStyles.Find(w => w.FontName == "正文附件");
+            //        word.AddContent("附件" + index.ToString(), style);
 
-                    if (appendix.Type == 0)
-                    {
-                        #region 正文中的文字附件
-                        var wa = (WordsAppendix)appendix;
+            //        if (appendix.Type == 0)
+            //        {
+            //            #region 正文中的文字附件
+            //            var wa = (WordsAppendix)appendix;
 
-                        style = config.FontStyles.Find(w => w.FontName == wa.Timu.ConType);
-                        word.AddContent(wa.Timu.ConContent, style);
+            //            style = config.FontStyles.Find(w => w.FontName == wa.Timu.ConType);
+            //            word.AddContent(wa.Timu.ConContent, style);
 
-                        style = config.FontStyles.Find(w => w.FontName == wa.TZhenwen.ConType);
-                        word.AddContent(wa.TZhenwen.ConContent, style);
+            //            style = config.FontStyles.Find(w => w.FontName == wa.TZhenwen.ConType);
+            //            word.AddContent(wa.TZhenwen.ConContent, style);
 
-                        a = b = c = d = 0;
+            //            a = b = c = d = 0;
 
-                        foreach (var v in wa.Zhenwen)
-                        {
-                            style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
-                            if (v.TContent.ConType == "一级标题")
-                            {
-                                v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + v.TContent.ConContent;
-                            }
-                            else if (v.TContent.ConType == "二级标题")
-                            {
-                                v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
-                            }
-                            else if (v.TContent.ConType == "三级标题")
-                            {
-                                v.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + v.TContent.ConContent;
-                            }
-                            else if (v.TContent.ConType == "四级标题")
-                            {
-                                v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
-                            }
-                            word.AddContent(v.TContent.ConContent, style);
-                        }
+            //            foreach (var v in wa.Zhenwen)
+            //            {
+            //                style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
+            //                if (v.TContent.ConType == "一级标题")
+            //                {
+            //                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + v.TContent.ConContent;
+            //                }
+            //                else if (v.TContent.ConType == "二级标题")
+            //                {
+            //                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
+            //                }
+            //                else if (v.TContent.ConType == "三级标题")
+            //                {
+            //                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + v.TContent.ConContent;
+            //                }
+            //                else if (v.TContent.ConType == "四级标题")
+            //                {
+            //                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
+            //                }
+            //                word.AddContent(v.TContent.ConContent, style);
+            //            }
 
-                        #region 附件中的附件
-                        foreach (var waf in wa.Appendixs)
-                        {
-                            style = config.FontStyles.Find(w => w.FontName == "附件中附件");
-                            word.AddContent("附", style);
+            //            #region 附件中的附件
+            //            foreach (var waf in wa.Appendixs)
+            //            {
+            //                style = config.FontStyles.Find(w => w.FontName == "附件中附件");
+            //                word.AddContent("附", style);
 
-                            if (waf.Type == 0)
-                            {
-                                var waa = (WordsAppendix)waf;
+            //                if (waf.Type == 0)
+            //                {
+            //                    var waa = (WordsAppendix)waf;
 
-                                style = config.FontStyles.Find(w => w.FontName == waa.Timu.ConType);
-                                word.AddContent(waa.Timu.ConContent, style);
+            //                    style = config.FontStyles.Find(w => w.FontName == waa.Timu.ConType);
+            //                    word.AddContent(waa.Timu.ConContent, style);
 
-                                style = config.FontStyles.Find(w => w.FontName == waa.TZhenwen.ConType);
-                                word.AddContent(waa.TZhenwen.ConContent, style);
+            //                    style = config.FontStyles.Find(w => w.FontName == waa.TZhenwen.ConType);
+            //                    word.AddContent(waa.TZhenwen.ConContent, style);
 
-                                a = b = c = d = 0;
+            //                    a = b = c = d = 0;
 
-                                foreach (var waav in waa.Zhenwen)
-                                {
-                                    style = config.FontStyles.Find(w => w.FontName == waav.TContent.ConType);
-                                    if (waav.TContent.ConType == "一级标题")
-                                    {
-                                        waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + waav.TContent.ConContent;
-                                    }
-                                    else if (waav.TContent.ConType == "二级标题")
-                                    {
-                                        waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + waav.TContent.ConContent;
-                                    }
-                                    else if (waav.TContent.ConType == "三级标题")
-                                    {
-                                        waav.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + waav.TContent.ConContent;
-                                    }
-                                    else if (waav.TContent.ConType == "四级标题")
-                                    {
-                                        waav.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + waav.TContent.ConContent;
-                                    }
-                                    word.AddContent(waav.TContent.ConContent, style);
-                                }
+            //                    foreach (var waav in waa.Zhenwen)
+            //                    {
+            //                        style = config.FontStyles.Find(w => w.FontName == waav.TContent.ConType);
+            //                        if (waav.TContent.ConType == "一级标题")
+            //                        {
+            //                            waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + waav.TContent.ConContent;
+            //                        }
+            //                        else if (waav.TContent.ConType == "二级标题")
+            //                        {
+            //                            waav.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + waav.TContent.ConContent;
+            //                        }
+            //                        else if (waav.TContent.ConType == "三级标题")
+            //                        {
+            //                            waav.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + waav.TContent.ConContent;
+            //                        }
+            //                        else if (waav.TContent.ConType == "四级标题")
+            //                        {
+            //                            waav.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + waav.TContent.ConContent;
+            //                        }
+            //                        word.AddContent(waav.TContent.ConContent, style);
+            //                    }
 
-                                foreach (var waff in wa.Appendixs)
-                                {
-                                    style = config.FontStyles.Find(w => w.FontName == "附件中附件");
-                                    word.AddContent("附", style);
+            //                    foreach (var waff in wa.Appendixs)
+            //                    {
+            //                        style = config.FontStyles.Find(w => w.FontName == "附件中附件");
+            //                        word.AddContent("附", style);
 
-                                    if (appendix is FileAppendix)
-                                    {
-                                        var fa = (FileAppendix)appendix;
-                                        style = config.FontStyles.Find(w => w.FontName == "附件题目");
-                                        word.AddContent(fa.Title, style);
+            //                        if (appendix is FileAppendix)
+            //                        {
+            //                            var fa = (FileAppendix)appendix;
+            //                            style = config.FontStyles.Find(w => w.FontName == "附件题目");
+            //                            word.AddContent(fa.Title, style);
 
-                                        if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
-                                        {
-                                            word.AddExcel(fa.FilePath);
-                                        }
-                                        else
-                                        {
-                                            word.AddImage(fa.FilePath);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        var waa3 = (WordsAppendix)waf;
+            //                            if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+            //                            {
+            //                                word.AddExcel(fa.FilePath);
+            //                            }
+            //                            else
+            //                            {
+            //                                word.AddImage(fa.FilePath);
+            //                            }
+            //                        }
+            //                        else
+            //                        {
+            //                            var waa3 = (WordsAppendix)waf;
 
-                                        style = config.FontStyles.Find(w => w.FontName == waa3.Timu.ConType);
-                                        word.AddContent(waa3.Timu.ConContent, style);
+            //                            style = config.FontStyles.Find(w => w.FontName == waa3.Timu.ConType);
+            //                            word.AddContent(waa3.Timu.ConContent, style);
 
-                                        style = config.FontStyles.Find(w => w.FontName == waa3.TZhenwen.ConType);
-                                        word.AddContent(waa3.TZhenwen.ConContent, style);
+            //                            style = config.FontStyles.Find(w => w.FontName == waa3.TZhenwen.ConType);
+            //                            word.AddContent(waa3.TZhenwen.ConContent, style);
 
-                                        a = b = c = d = 0;
+            //                            a = b = c = d = 0;
 
-                                        foreach (var waav3 in waa3.Zhenwen)
-                                        {
-                                            style = config.FontStyles.Find(w => w.FontName == waav3.TContent.ConType);
-                                            if (waav3.TContent.ConType == "一级标题")
-                                            {
-                                                waav3.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + waav3.TContent.ConContent;
-                                            }
-                                            else if (waav3.TContent.ConType == "二级标题")
-                                            {
-                                                waav3.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + waav3.TContent.ConContent;
-                                            }
-                                            else if (waav3.TContent.ConType == "三级标题")
-                                            {
-                                                waav3.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + waav3.TContent.ConContent;
-                                            }
-                                            else if (waav3.TContent.ConType == "四级标题")
-                                            {
-                                                waav3.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + waav3.TContent.ConContent;
-                                            }
-                                            word.AddContent(waav3.TContent.ConContent, style);
-                                        }
+            //                            foreach (var waav3 in waa3.Zhenwen)
+            //                            {
+            //                                style = config.FontStyles.Find(w => w.FontName == waav3.TContent.ConType);
+            //                                if (waav3.TContent.ConType == "一级标题")
+            //                                {
+            //                                    waav3.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + waav3.TContent.ConContent;
+            //                                }
+            //                                else if (waav3.TContent.ConType == "二级标题")
+            //                                {
+            //                                    waav3.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + waav3.TContent.ConContent;
+            //                                }
+            //                                else if (waav3.TContent.ConType == "三级标题")
+            //                                {
+            //                                    waav3.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + waav3.TContent.ConContent;
+            //                                }
+            //                                else if (waav3.TContent.ConType == "四级标题")
+            //                                {
+            //                                    waav3.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + waav3.TContent.ConContent;
+            //                                }
+            //                                word.AddContent(waav3.TContent.ConContent, style);
+            //                            }
 
-                                        if (waa3.Appendixs != null)
-                                        {
-                                            foreach (var waff3 in waa3.Appendixs)
-                                            {
-                                                style = config.FontStyles.Find(w => w.FontName == "附件中附件");
-                                                word.AddContent("附", style);
+            //                            if (waa3.Appendixs != null)
+            //                            {
+            //                                foreach (var waff3 in waa3.Appendixs)
+            //                                {
+            //                                    style = config.FontStyles.Find(w => w.FontName == "附件中附件");
+            //                                    word.AddContent("附", style);
 
-                                                if (appendix is FileAppendix)
-                                                {
-                                                    var fa = (FileAppendix)appendix;
-                                                    style = config.FontStyles.Find(w => w.FontName == "附件题目");
-                                                    word.AddContent(fa.Title, style);
+            //                                    if (appendix is FileAppendix)
+            //                                    {
+            //                                        var fa = (FileAppendix)appendix;
+            //                                        style = config.FontStyles.Find(w => w.FontName == "附件题目");
+            //                                        word.AddContent(fa.Title, style);
 
-                                                    if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
-                                                    {
-                                                        word.AddExcel(fa.FilePath);
-                                                    }
-                                                    else
-                                                    {
-                                                        word.AddImage(fa.FilePath);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                var fa = (FileAppendix)appendix;
-                                style = config.FontStyles.Find(w => w.FontName == "附件题目");
-                                word.AddContent(fa.Title, style);
+            //                                        if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+            //                                        {
+            //                                            word.AddExcel(fa.FilePath);
+            //                                        }
+            //                                        else
+            //                                        {
+            //                                            word.AddImage(fa.FilePath);
+            //                                        }
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    var fa = (FileAppendix)appendix;
+            //                    style = config.FontStyles.Find(w => w.FontName == "附件题目");
+            //                    word.AddContent(fa.Title, style);
 
-                                if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
-                                {
-                                    word.AddExcel(fa.FilePath);
-                                }
-                                else
-                                {
-                                    word.AddImage(fa.FilePath);
-                                }
-                            }
-                        }
-                        #endregion
+            //                    if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+            //                    {
+            //                        word.AddExcel(fa.FilePath);
+            //                    }
+            //                    else
+            //                    {
+            //                        word.AddImage(fa.FilePath);
+            //                    }
+            //                }
+            //            }
+            //            #endregion
 
-                        #endregion
-                    }
-                    else
-                    {
-                        var fa = (FileAppendix)appendix;
-                        style = config.FontStyles.Find(w => w.FontName == "附件题目");
-                        word.AddContent(fa.Title, style);
+            //            #endregion
+            //        }
+            //        else
+            //        {
+            //            var fa = (FileAppendix)appendix;
+            //            style = config.FontStyles.Find(w => w.FontName == "附件题目");
+            //            word.AddContent(fa.Title, style);
 
-                        if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
-                        {
-                            word.AddExcel(fa.FilePath);
-                        }
-                        else
-                        {
-                            word.AddImage(fa.FilePath);
-                        }
-                    }
-                }
-            }
+            //            if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+            //            {
+            //                word.AddExcel(fa.FilePath);
+            //            }
+            //            else
+            //            {
+            //                word.AddImage(fa.FilePath);
+            //            }
+            //        }
+            //    }
+            //}
+            #endregion
 
             //结尾
             style = config.FontStyles.Find(w => w.FontName == n.Chaosong.ConType);
-            word.AddTable(n.Chaosong.ConContent, style);            
+            word.AddTable(n.Chaosong.ConContent, style);
             
             word.InsertPageNumber("Rfight", true);
-            word.SaveAndClose("D:\\123.doc");
+            using(SaveFileDialog file = new SaveFileDialog())
+            {
+                file.FileName = "公告.doc";
+                file.Filter = @"Word文件|*.doc";
+                if(file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    word.SaveAndClose(file.FileName);
+                }
+            }
+            MsgTool.ShowMsg("保存成功");
         }
 
-        private void AddAppendix(List<Appendix> appendixs)
+        private void AddAppendixs(List<Appendix> appendixs, int leve)
         {
-            
+            if (appendixs == null) return;
+
+            string stylename = leve == 0 ? "正文附件" : "附件中附件";
+            string appendixname = leve == 0 ? "附件{0}" : "附";
+            Style style;
+
+            int index = 1;
+            foreach (var appendix in appendixs)
+            {
+                style = config.FontStyles.Find(w => w.FontName == stylename);
+                word.AddContent(string.Format(appendixname, (index++).ToString()), style);
+
+                switch (appendix.Type)
+                {
+                    case 0:
+                        AddAppendixTitles((WordsAppendix)appendix);
+                        break;
+                    case 1:
+                        AddAppendixFiles((FileAppendix)appendix);
+                        break;
+                }
+            }
+        }        
+
+        private void AddAppendixTitles(WordsAppendix wa)
+        {
+            Style style = config.FontStyles.Find(w => w.FontName == wa.Timu.ConType);
+            word.AddContent(wa.Timu.ConContent, style);
+
+            style = config.FontStyles.Find(w => w.FontName == wa.TZhenwen.ConType);
+            word.AddContent(wa.TZhenwen.ConContent, style);
+
+            int a, b, c, d;
+            a = b = c = d = 0;
+
+            foreach (var v in wa.Zhenwen)
+            {
+                style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
+                if (v.TContent.ConType == "一级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + v.TContent.ConContent;
+                }
+                else if (v.TContent.ConType == "二级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
+                }
+                else if (v.TContent.ConType == "三级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + v.TContent.ConContent;
+                }
+                else if (v.TContent.ConType == "四级标题")
+                {
+                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
+                }
+                word.AddContent(v.TContent.ConContent, style);
+            }
+
+            if (wa.Appendixs != null)
+                AddAppendixs(wa.Appendixs, 1);
+        }
+
+        private void AddAppendixFiles(FileAppendix fa)
+        {
+            var style = config.FontStyles.Find(w => w.FontName == "附件题目");
+            word.AddContent(fa.Title, style);
+
+            if (fa.FilePath.EndsWith(".xls") || fa.FilePath.EndsWith(".xlsx"))
+            {
+                word.AddExcel(fa.FilePath);
+            }
+            else
+            {
+                word.AddImage(fa.FilePath);
+            }
         }
 
         private void btnWord_Click(object sender, EventArgs e)

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace ToWord
@@ -113,7 +111,23 @@ namespace ToWord
             object linkToFile = false;
             object displayAsIcon = false;
             GoToTheEnd();
-            application.Selection.InlineShapes.AddOLEObject(ref classType, ref fileName, ref linkToFile, ref displayAsIcon);
+            var excel = application.Selection.InlineShapes.AddOLEObject(ref classType, ref fileName, ref linkToFile, ref displayAsIcon);
+            //excel.Fill.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;
+            excel.Fill.Solid();
+            excel.Fill.Transparency = 0f;
+            excel.Line.Weight = 0.75f;
+            excel.Line.Transparency = 0f;
+            excel.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;
+            excel.LockAspectRatio = Microsoft.Office.Core.MsoTriState.msoTrue;
+            excel.Height = 386.95f;
+            excel.Width = 479.35f;
+            excel.PictureFormat.Brightness = 0.5f;
+            excel.PictureFormat.Contrast = 0.5f;
+            excel.PictureFormat.ColorType = Microsoft.Office.Core.MsoPictureColorType.msoPictureAutomatic;
+            excel.PictureFormat.CropLeft = 0f;
+            excel.PictureFormat.CropRight = 0f;
+            excel.PictureFormat.CropTop = 0f;
+            excel.PictureFormat.CropBottom = 0f;
             application.Selection.TypeParagraph();
         }
 
@@ -237,21 +251,6 @@ namespace ToWord
             document.SaveAs(ref fileName, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing, ref nothing);
             document.Close(ref nothing, ref nothing, ref nothing);
             application.Quit(ref nothing, ref nothing, ref nothing);
-        }
-
-        public void formatContent()
-        {
-            Word.TableOfContents myContent = document.TablesOfContents[1]; //目录  
-            Word.Paragraphs myParagraphs = myContent.Range.Paragraphs; //目录里的所有段，一行一段  
-            int[] FirstParaArray = new int[3] { 1, 8, 9 }; //一级标题，直接指定  
-            foreach (int i in FirstParaArray)
-            {
-                myParagraphs[i].Range.Font.Bold = 1;  //加粗  
-                myParagraphs[i].Range.Font.Name = "黑体"; //字体  
-                myParagraphs[i].Range.Font.Size = 12; //小四  
-                myParagraphs[i].Range.ParagraphFormat.SpaceBefore = 6; //段前  
-                myParagraphs[i].Range.ParagraphFormat.SpaceAfter = 6; //段后间距  
-            }
         }
     }
 }
