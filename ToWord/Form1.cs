@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using ToWord.Model;
 using MSWord = Microsoft.Office.Interop.Word;
-using SRDFAA.Fram.Utilities;
 
 namespace ToWord
 {
@@ -233,7 +224,7 @@ namespace ToWord
                     else
                         word.AddContent(string.Format("　　　 {0}. {1}", index, item.Title), style);
                     index++;
-                });                
+                });
             }
 
             style = config.FontStyles.Find(w => w.FontName == "落款");
@@ -467,12 +458,14 @@ namespace ToWord
                     word.SaveAndClose(file.FileName);
                 }
             }
-            MsgTool.ShowMsg("保存成功");
+            MessageBox.Show("保存成功");
         }
 
         private void AddAppendixs(List<Appendix> appendixs, int leve)
         {
             if (appendixs == null) return;
+
+            word.NewPage();
 
             string stylename = leve == 0 ? "正文附件" : "附件中附件";
             string appendixname = leve == 0 ? "附件{0}" : "附";
@@ -507,26 +500,29 @@ namespace ToWord
             int a, b, c, d;
             a = b = c = d = 0;
 
-            foreach (var v in wa.Zhenwen)
+            if (wa.Zhenwen != null)
             {
-                style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
-                if (v.TContent.ConType == "一级标题")
+                foreach (var v in wa.Zhenwen)
                 {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + v.TContent.ConContent;
+                    style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
+                    if (v.TContent.ConType == "一级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + v.TContent.ConContent;
+                    }
+                    else if (v.TContent.ConType == "二级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
+                    }
+                    else if (v.TContent.ConType == "三级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + v.TContent.ConContent;
+                    }
+                    else if (v.TContent.ConType == "四级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
+                    }
+                    word.AddContent(v.TContent.ConContent, style);
                 }
-                else if (v.TContent.ConType == "二级标题")
-                {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
-                }
-                else if (v.TContent.ConType == "三级标题")
-                {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + v.TContent.ConContent;
-                }
-                else if (v.TContent.ConType == "四级标题")
-                {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
-                }
-                word.AddContent(v.TContent.ConContent, style);
             }
 
             if (wa.Appendixs != null)

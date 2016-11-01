@@ -146,12 +146,12 @@ namespace ToWord
             object defaultTableBehavior = Word.WdDefaultTableBehavior.wdWord9TableBehavior;
             object autofitbehavior = Word.WdAutoFitBehavior.wdAutoFitFixed;
             GoToTheEnd();
-            application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 3, ref defaultTableBehavior, ref autofitbehavior);
+            var tablea = application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 1, ref defaultTableBehavior, ref autofitbehavior);
             application.Selection.ParagraphFormat.SpaceBefore = 0f;
             application.Selection.ParagraphFormat.SpaceAfterAuto = 0;
             application.Selection.ParagraphFormat.FirstLineIndent = application.CentimetersToPoints(0.5f);
             GoToTheEnd();
-            application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 2, ref defaultTableBehavior, ref autofitbehavior);
+            var tableb = application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 2, ref defaultTableBehavior, ref autofitbehavior);
             application.Selection.ParagraphFormat.SpaceBefore = 0f;
             application.Selection.ParagraphFormat.SpaceAfterAuto = 0;
             application.Selection.ParagraphFormat.FirstLineIndent = application.CentimetersToPoints(0.5f);
@@ -164,18 +164,30 @@ namespace ToWord
             application.Selection.Columns.PreferredWidth = 0;
             application.Selection.Cells.PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthAuto;
             application.Selection.Cells.PreferredWidth = 0;
-            application.Selection.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;            
+            application.Selection.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
 
-            var row = application.Selection.Tables[1].Rows[1];
-            row.Cells[1].Width = 60f;
-            row.Cells[1].Range.Text = "抄送:";            
-            row.Cells[2].Range.Text = content;            
+            //var row = application.Selection.Tables[1].Rows[1];
+            ////row.Cells[1].Width = 60f;
+            ////row.Cells[1].Range.Text = "抄送:";
+            //row.Cells[1].Range.Text = content;
+            var cella = tablea.Cell(1, 1);
+            cella.Range.Text = content;
 
-            row = application.Selection.Tables[1].Rows[2];
-            row.Cells[1].Range.Text = "国网重庆市电力公司永川供电分公司办公室";
-            row.Cells[1].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;            
-            row.Cells[2].Range.Text = DateTime.Today.ToString("yyyy年MM月dd日")+"印发";
-            row.Cells[2].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;
+            var cellb = tableb.Cell(1, 1);
+            //cellb.Width = 200f;
+            cellb.Range.Text = "国网重庆市电力公司永川供电分公司办公室";
+            cellb.Range.ShapeRange.Align(Microsoft.Office.Core.MsoAlignCmd.msoAlignLefts, 0);            
+
+            var cellc = tableb.Cell(1, 2);
+            cellc.Range.Text = DateTime.Today.ToString("yyyy年MM月dd日") + "印发";
+            cellc.Range.ShapeRange.Align(Microsoft.Office.Core.MsoAlignCmd.msoAlignRights, 4);
+            cellc.Range.FitTextWidth = application.CentimetersToPoints(4.28f);
+
+            //row = application.Selection.Tables[1].Rows[2];
+            //row.Cells[1].Range.Text = "国网重庆市电力公司永川供电分公司办公室";
+            //row.Cells[1].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;            
+            //row.Cells[2].Range.Text = DateTime.Today.ToString("yyyy年MM月dd日")+"印发";
+            //row.Cells[2].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;
         }
 
         private void SetTableStyle(int tableindex, Model.Style style)
@@ -191,7 +203,7 @@ namespace ToWord
             application.Selection.Tables[tableindex].Borders[Word.WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleNone;
             application.Selection.Tables[tableindex].Borders[Word.WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleNone;
             application.Selection.Tables[tableindex].Borders[Word.WdBorderType.wdBorderVertical].LineStyle = Word.WdLineStyle.wdLineStyleNone;
-            application.Selection.Tables[tableindex].Rows.Alignment = Word.WdRowAlignment.wdAlignRowCenter;
+            //application.Selection.Tables[tableindex].Rows.Alignment = Word.WdRowAlignment.wdAlignRowCenter;
             application.Selection.Tables[tableindex].PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthPoints;
             application.Selection.Tables[tableindex].PreferredWidth = application.CentimetersToPoints(15.6f);
             application.Selection.Tables[tableindex].Rows.WrapAroundText = 1;
@@ -208,6 +220,14 @@ namespace ToWord
             object unit;
             unit = Microsoft.Office.Interop.Word.WdUnits.wdStory;
             application.Selection.EndKey(ref unit, ref nothing);
+        }
+
+        public void NewPage()
+        {
+            GoToTheEnd();
+            object type = Word.WdBreakType.wdPageBreak;
+            application.Selection.InsertBreak(ref type);
+            //Selection.InsertBreak Type:= wdPageBreak
         }
 
         /// <summary>

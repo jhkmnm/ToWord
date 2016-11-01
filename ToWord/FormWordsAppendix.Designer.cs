@@ -116,6 +116,7 @@
             // 
             // txtContent
             // 
+            this.txtContent.Font = new System.Drawing.Font("宋体", 12F);
             this.txtContent.Location = new System.Drawing.Point(12, 183);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
@@ -195,6 +196,7 @@
             // 
             // txtZhenwen
             // 
+            this.txtZhenwen.Font = new System.Drawing.Font("宋体", 12F);
             this.txtZhenwen.Location = new System.Drawing.Point(49, 60);
             this.txtZhenwen.Multiline = true;
             this.txtZhenwen.Name = "txtZhenwen";
@@ -212,6 +214,7 @@
             // 
             // txtTimu
             // 
+            this.txtTimu.Font = new System.Drawing.Font("宋体", 12F);
             this.txtTimu.Location = new System.Drawing.Point(49, 12);
             this.txtTimu.Multiline = true;
             this.txtTimu.Name = "txtTimu";

@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SRDFAA.Fram.Utilities;
 
 namespace ToWord
 {
@@ -41,6 +35,7 @@ namespace ToWord
             if (_notice == null)
             {
                 _notice = new Notice();
+                txtFawen.Text = "〔"+ DateTime.Now.Year.ToString() +"〕";
                 return;
             } 
 

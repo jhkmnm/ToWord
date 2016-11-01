@@ -56,6 +56,7 @@
             // 
             // txtFawen
             // 
+            this.txtFawen.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtFawen.Location = new System.Drawing.Point(69, 16);
             this.txtFawen.Multiline = true;
             this.txtFawen.Name = "txtFawen";
@@ -91,6 +92,7 @@
             // 
             // txtTimu
             // 
+            this.txtTimu.Font = new System.Drawing.Font("宋体", 12F);
             this.txtTimu.Location = new System.Drawing.Point(441, 16);
             this.txtTimu.Multiline = true;
             this.txtTimu.Name = "txtTimu";
@@ -99,6 +101,7 @@
             // 
             // txtBumen
             // 
+            this.txtBumen.Font = new System.Drawing.Font("宋体", 12F);
             this.txtBumen.Location = new System.Drawing.Point(69, 64);
             this.txtBumen.Multiline = true;
             this.txtBumen.Name = "txtBumen";
@@ -107,6 +110,7 @@
             // 
             // txtZhenwen
             // 
+            this.txtZhenwen.Font = new System.Drawing.Font("宋体", 12F);
             this.txtZhenwen.Location = new System.Drawing.Point(69, 112);
             this.txtZhenwen.Multiline = true;
             this.txtZhenwen.Name = "txtZhenwen";
@@ -195,6 +199,7 @@
             // 
             // txtContent
             // 
+            this.txtContent.Font = new System.Drawing.Font("宋体", 12F);
             this.txtContent.Location = new System.Drawing.Point(6, 265);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
@@ -262,6 +267,7 @@
             // 
             // txtChaosong
             // 
+            this.txtChaosong.Font = new System.Drawing.Font("宋体", 12F);
             this.txtChaosong.Location = new System.Drawing.Point(69, 160);
             this.txtChaosong.Multiline = true;
             this.txtChaosong.Name = "txtChaosong";
