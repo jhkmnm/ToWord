@@ -95,18 +95,20 @@ namespace ToWord
         private void button1_Click(object sender, EventArgs e)
         {
             word = new WordUtil();
-            word.AddExcel(@"D:\桌面文件\list(20151101--20151130).xls");
-            word.AddExcel(@"D:\桌面文件\重新实名.xlsx");
+            var style = new Style { FontName = "抄送", Font = "方正仿宋_GBK", Size = 14f };
+            word.AddTable("抄送抄送抄送抄送抄送", style);
+            //word.AddExcel(@"D:\桌面文件\list(20151101--20151130).xls");
+            //word.AddExcel(@"D:\桌面文件\重新实名.xlsx");
 
-            using (SaveFileDialog file = new SaveFileDialog())
-            {
-                file.FileName = "公告.doc";
-                file.Filter = @"Word文件|*.doc";
-                if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    word.SaveAndClose(file.FileName);
-                }
-            }                        
+            //using (SaveFileDialog file = new SaveFileDialog())
+            //{
+            //    file.FileName = "公告.doc";
+            //    file.Filter = @"Word文件|*.doc";
+            //    if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        word.SaveAndClose(file.FileName);
+            //    }
+            //}                        
             //dDLSourceBindingSource.List.Add(new DDLSource() { Text = "基本面", Index = 1 });
             //((DDLSource)dDLSourceBindingSource.DataSource).Text = "基本面";
             //comboBox1.DataSource = null;

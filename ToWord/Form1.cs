@@ -193,26 +193,29 @@ namespace ToWord
             int a, b, c, d = 0;
             a = b = c = d;
 
-            foreach (var v in n.Zhenwen)
+            if (n.Zhenwen != null)
             {
-                style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
-                if (v.TContent.ConType == "一级标题")
+                foreach (var v in n.Zhenwen)
                 {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++])+v.TContent.ConContent;
+                    style = config.FontStyles.Find(w => w.FontName == v.TContent.ConType);
+                    if (v.TContent.ConType == "一级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleA[a++]) + v.TContent.ConContent;
+                    }
+                    else if (v.TContent.ConType == "二级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
+                    }
+                    else if (v.TContent.ConType == "三级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + v.TContent.ConContent;
+                    }
+                    else if (v.TContent.ConType == "四级标题")
+                    {
+                        v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
+                    }
+                    word.AddContent(v.TContent.ConContent, style);
                 }
-                else if(v.TContent.ConType == "二级标题")
-                {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleA[b++]) + v.TContent.ConContent;
-                }
-                else if (v.TContent.ConType == "三级标题")
-                {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[c++]) + v.TContent.ConContent;
-                }
-                else if (v.TContent.ConType == "四级标题")
-                {
-                    v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
-                }
-                word.AddContent(v.TContent.ConContent, style);
             }
 
             //空一行

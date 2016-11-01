@@ -144,8 +144,8 @@ namespace ToWord
         public void AddTable(string content, Model.Style style)
         {
             object defaultTableBehavior = Word.WdDefaultTableBehavior.wdWord9TableBehavior;
-            object autofitbehavior = Word.WdAutoFitBehavior.wdAutoFitFixed;            
-
+            object autofitbehavior = Word.WdAutoFitBehavior.wdAutoFitFixed;
+            GoToTheEnd();
             application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 3, ref defaultTableBehavior, ref autofitbehavior);
             application.Selection.ParagraphFormat.SpaceBefore = 0f;
             application.Selection.ParagraphFormat.SpaceAfterAuto = 0;
@@ -171,7 +171,7 @@ namespace ToWord
             row.Cells[1].Range.Text = "抄送:";            
             row.Cells[2].Range.Text = content;            
 
-            row = application.Selection.Tables[1].Rows[2];            
+            row = application.Selection.Tables[1].Rows[2];
             row.Cells[1].Range.Text = "国网重庆市电力公司永川供电分公司办公室";
             row.Cells[1].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;            
             row.Cells[2].Range.Text = DateTime.Today.ToString("yyyy年MM月dd日")+"印发";
