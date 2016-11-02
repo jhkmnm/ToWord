@@ -87,5 +87,7 @@ namespace ToWord.Model
 
         [XmlAttribute]
         public string Number { get; set; }
+
+        public int Scaling { get; set; }
     }
 }

@@ -128,7 +128,7 @@
             // 
             // btnBiaoti1
             // 
-            this.btnBiaoti1.Location = new System.Drawing.Point(69, 199);
+            this.btnBiaoti1.Location = new System.Drawing.Point(69, 196);
             this.btnBiaoti1.Name = "btnBiaoti1";
             this.btnBiaoti1.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti1.TabIndex = 11;
@@ -138,7 +138,7 @@
             // 
             // btnBiaoti2
             // 
-            this.btnBiaoti2.Location = new System.Drawing.Point(176, 199);
+            this.btnBiaoti2.Location = new System.Drawing.Point(176, 196);
             this.btnBiaoti2.Name = "btnBiaoti2";
             this.btnBiaoti2.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti2.TabIndex = 12;
@@ -148,7 +148,7 @@
             // 
             // btnBiaoti3
             // 
-            this.btnBiaoti3.Location = new System.Drawing.Point(283, 199);
+            this.btnBiaoti3.Location = new System.Drawing.Point(283, 196);
             this.btnBiaoti3.Name = "btnBiaoti3";
             this.btnBiaoti3.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti3.TabIndex = 13;
@@ -158,7 +158,7 @@
             // 
             // btnBiaoti4
             // 
-            this.btnBiaoti4.Location = new System.Drawing.Point(397, 199);
+            this.btnBiaoti4.Location = new System.Drawing.Point(397, 196);
             this.btnBiaoti4.Name = "btnBiaoti4";
             this.btnBiaoti4.Size = new System.Drawing.Size(75, 23);
             this.btnBiaoti4.TabIndex = 14;
@@ -168,7 +168,7 @@
             // 
             // btnTzhenwen
             // 
-            this.btnTzhenwen.Location = new System.Drawing.Point(508, 199);
+            this.btnTzhenwen.Location = new System.Drawing.Point(508, 196);
             this.btnTzhenwen.Name = "btnTzhenwen";
             this.btnTzhenwen.Size = new System.Drawing.Size(75, 23);
             this.btnTzhenwen.TabIndex = 15;
@@ -181,7 +181,7 @@
             this.treeView1.CheckBoxes = true;
             this.treeView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(229, 233);
+            this.treeView1.Location = new System.Drawing.Point(229, 237);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(660, 393);
             this.treeView1.TabIndex = 16;
@@ -189,7 +189,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(684, 199);
+            this.button7.Location = new System.Drawing.Point(684, 196);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 17;
@@ -200,7 +200,7 @@
             // txtContent
             // 
             this.txtContent.Font = new System.Drawing.Font("宋体", 12F);
-            this.txtContent.Location = new System.Drawing.Point(6, 265);
+            this.txtContent.Location = new System.Drawing.Point(6, 263);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
             this.txtContent.Size = new System.Drawing.Size(217, 264);
@@ -208,7 +208,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(26, 236);
+            this.btnOK.Location = new System.Drawing.Point(26, 234);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 19;
@@ -227,7 +227,7 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(131, 236);
+            this.btnDel.Location = new System.Drawing.Point(131, 234);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(75, 23);
             this.btnDel.TabIndex = 21;
@@ -259,7 +259,7 @@
             // 
             this.label8.AutoEllipsis = true;
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(8, 605);
+            this.label8.Location = new System.Drawing.Point(8, 573);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(210, 21);
             this.label8.TabIndex = 24;
@@ -273,21 +273,23 @@
             this.txtChaosong.Name = "txtChaosong";
             this.txtChaosong.Size = new System.Drawing.Size(815, 33);
             this.txtChaosong.TabIndex = 26;
+            this.txtChaosong.Visible = true;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(28, 163);
+            this.label9.Location = new System.Drawing.Point(16, 167);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 12);
+            this.label9.Size = new System.Drawing.Size(47, 12);
             this.label9.TabIndex = 25;
             this.label9.Text = "抄送:";
+            this.label9.Visible = true;
             // 
             // FormNotice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 632);
+            this.ClientSize = new System.Drawing.Size(896, 637);
             this.Controls.Add(this.txtChaosong);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);

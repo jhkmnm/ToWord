@@ -71,7 +71,7 @@ namespace ToWord
             config = new Config
             {                
                 FontStyles = new List<Style> {
-                    new Style { FontName = "标题", Font = "方正小标宋_GBK", Size = 33, FontStyle = FontStyle.Bold, FontColor = Microsoft.Office.Interop.Word.WdColor.wdColorRed, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify },
+                    new Style { FontName = "标题", Font = "方正小标宋_GBK", Size = 33, FontStyle = FontStyle.Bold, FontColor = Microsoft.Office.Interop.Word.WdColor.wdColorRed, Align = MSWord.WdParagraphAlignment.wdAlignParagraphJustify, Scaling = 68 },
                     new Style { FontName = "发文字号", Font = "方正仿宋_GBK", Size = font3, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter },
                     new Style { FontName = "题目", Font = "方正小标宋_GBK", Size = font2, FontStyle = FontStyle.Bold, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter },
                     new Style { FontName = "主送部门", Font = "方正仿宋_GBK", Size = font3 },

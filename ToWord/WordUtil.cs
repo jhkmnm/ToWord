@@ -40,6 +40,7 @@ namespace ToWord
                 p.Range.Font.Color = style.FontColor;
                 p.Range.Font.Bold = style.FontStyle == System.Drawing.FontStyle.Bold ? 1 : 0;
                 p.CharacterUnitFirstLineIndent = style.Indent == 0 ? p.CharacterUnitFirstLineIndent : style.Indent;    //缩进2字符
+                p.Range.Font.Scaling = style.Scaling == 0 ? 100 : style.Scaling;
             }
             p.Range.InsertParagraphAfter();
         }
@@ -146,15 +147,20 @@ namespace ToWord
             object defaultTableBehavior = Word.WdDefaultTableBehavior.wdWord9TableBehavior;
             object autofitbehavior = Word.WdAutoFitBehavior.wdAutoFitFixed;
             GoToTheEnd();
-            var tablea = application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 1, ref defaultTableBehavior, ref autofitbehavior);
-            application.Selection.ParagraphFormat.SpaceBefore = 0f;
-            application.Selection.ParagraphFormat.SpaceAfterAuto = 0;
-            application.Selection.ParagraphFormat.FirstLineIndent = application.CentimetersToPoints(0.5f);
-            GoToTheEnd();
+            Word.Table tablea = null;
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                tablea = application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 3, ref defaultTableBehavior, ref autofitbehavior);
+                application.Selection.ParagraphFormat.SpaceBefore = 0f;
+                application.Selection.ParagraphFormat.SpaceAfterAuto = 0;
+                application.Selection.ParagraphFormat.FirstLineIndent = application.CentimetersToPoints(0.3f);
+                GoToTheEnd();
+            }
+
             var tableb = application.ActiveDocument.Tables.Add(application.Selection.Range, 1, 2, ref defaultTableBehavior, ref autofitbehavior);
             application.Selection.ParagraphFormat.SpaceBefore = 0f;
             application.Selection.ParagraphFormat.SpaceAfterAuto = 0;
-            application.Selection.ParagraphFormat.FirstLineIndent = application.CentimetersToPoints(0.5f);
+            application.Selection.ParagraphFormat.FirstLineIndent = application.CentimetersToPoints(0.3f);
 
             SetTableStyle(1, style);
 
@@ -166,26 +172,29 @@ namespace ToWord
             application.Selection.Cells.PreferredWidth = 0;
             application.Selection.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
 
-            //var row = application.Selection.Tables[1].Rows[1];
-            ////row.Cells[1].Width = 60f;
-            ////row.Cells[1].Range.Text = "抄送:";
-            //row.Cells[1].Range.Text = content;
-            var cella = tablea.Cell(1, 1);
-            cella.Range.Text = content;
+            if (tablea != null)
+            {
+                var cella = tablea.Cell(1, 1);
+                cella.Width = 60f;
+                cella.Range.Text = "抄送:";
 
-            var cellb = tableb.Cell(1, 1);
-            //cellb.Width = 200f;
-            cellb.Range.Text = "国网重庆市电力公司永川供电分公司办公室";
-            cellb.Range.ShapeRange.Align(Microsoft.Office.Core.MsoAlignCmd.msoAlignLefts, 0);            
+                var celld = tablea.Cell(1, 2);
+                celld.Range.Text = content;                
+            }
 
             var cellc = tableb.Cell(1, 2);
             cellc.Range.Text = DateTime.Today.ToString("yyyy年MM月dd日") + "印发";
-            cellc.Range.ShapeRange.Align(Microsoft.Office.Core.MsoAlignCmd.msoAlignRights, 4);
-            cellc.Range.FitTextWidth = application.CentimetersToPoints(4.28f);
+            //cellc.Range.ShapeRange.Align(Microsoft.Office.Core.MsoAlignCmd.msoAlignRights, 0);
+            cellc.Range.FitTextWidth = application.CentimetersToPoints(4.00f);
+
+            var cellb = tableb.Cell(1, 1);            
+            cellb.Range.Text = "国网重庆市电力公司永川供电分公司办公室";
+            cellb.Range.ShapeRange.Align(Microsoft.Office.Core.MsoAlignCmd.msoAlignLefts, 0);
+            //cellb.Range.FitTextWidth = application.CentimetersToPoints(1.22f);
 
             //row = application.Selection.Tables[1].Rows[2];
             //row.Cells[1].Range.Text = "国网重庆市电力公司永川供电分公司办公室";
-            //row.Cells[1].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;            
+            //row.Cells[1].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
             //row.Cells[2].Range.Text = DateTime.Today.ToString("yyyy年MM月dd日")+"印发";
             //row.Cells[2].Range.Application.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;
         }
