@@ -32,18 +32,27 @@ namespace ToWord
 
         private void Init()
         {
-            if (_notice == null)
+            if (_notice == null || _notice.Fawen == null)
             {
                 _notice = new Notice();
                 txtFawen.Text = "〔"+ DateTime.Now.Year.ToString() +"〕";
                 return;
-            } 
+            }
 
-            txtFawen.Text = _notice.Fawen.ConContent;
-            txtTimu.Text = _notice.Timu.ConContent;
-            txtBumen.Text = _notice.Bumen.ConContent;
-            txtZhenwen.Text = _notice.BumenZhenwen.ConContent;
-            txtChaosong.Text = _notice.Chaosong.ConContent;
+            if (_notice.Fawen != null)
+                txtFawen.Text = _notice.Fawen.ConContent;
+
+            if (_notice.Timu != null)
+                txtTimu.Text = _notice.Timu.ConContent;
+
+            if (_notice.Bumen != null)
+                txtBumen.Text = _notice.Bumen.ConContent;
+
+            if (_notice.BumenZhenwen != null)
+                txtZhenwen.Text = _notice.BumenZhenwen.ConContent;
+
+            if (_notice.Chaosong != null)
+                txtChaosong.Text = _notice.Chaosong.ConContent;            
 
             if (_notice.Zhenwen != null)
             {
@@ -206,8 +215,7 @@ namespace ToWord
         {
             if(DelCheck())
             {
-                DeleteTreeNode();                
-                selectedNode = selectedNode.PrevNode;
+                DeleteTreeNode();
             }
         }
 
@@ -238,12 +246,7 @@ namespace ToWord
 
         private void btnBiaoti1_Click(object sender, EventArgs e)
         {
-            isadd = true;
-            //int _id = 1;
-            //if(_title != null)
-            //{
-            //    _id = ++id;
-            //}
+            isadd = true;            
             index = 1;
             SetTitle(++id);
         }
@@ -297,8 +300,55 @@ namespace ToWord
         }
 
         private void FormNotice_FormClosed(object sender, FormClosedEventArgs e)
-        {
+        {            
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void btnFile_Click(object sender, EventArgs e)
+        {
+            index = 0;
+            if (AddCheck())
+            {
+                using (OpenFileDialog file = new OpenFileDialog())
+                {
+                    if (file.ShowDialog() == DialogResult.OK)
+                    {
+                        var Appendixs = new List<Appendix>();
+                        Appendixs.Add(
+                                new FileAppendix()
+                                {
+                                    Type = 1,
+                                    Title = file.SafeFileName.Substring(0, file.SafeFileName.LastIndexOf(".")),
+                                    FileName = new Content() { ConType = "附件", ConContent = file.FileName },
+                                    FilePath = file.FileName
+                                }
+                                );
+
+                        Title title = new Title()
+                        {
+                            ID = ++id,
+                            Parent = ((Title)selectedNode.Tag).ID,
+                            TContent = new Content() { ConType = "正文表格", ConContent = file.SafeFileName.Substring(0, file.SafeFileName.LastIndexOf(".")) },
+                            Appendixs = Appendixs
+                        };
+
+                        TreeNode n = new TreeNode() { Tag = title, Text = title.TContent.ConContent };
+                        if (treeView1.Nodes == null)
+                        {
+                            treeView1.Nodes.Add(n);
+                        }
+                        else if (treeView1.SelectedNode != null)
+                        {
+                            treeView1.SelectedNode.Nodes.Add(n);
+                        }
+                        else
+                        {
+                            treeView1.Nodes.Add(n);
+                        }
+                        treeView1.ExpandAll();
+                    }
+                }
+            }                
         }
     }
 }

@@ -80,6 +80,7 @@ namespace ToWord
                     new Style { FontName = "二级标题", Font = "方正楷体_GBK", Size = font3, Indent = 2, NumberFormat = "（{0}） " },
                     new Style { FontName = "三级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "{0}." },
                     new Style { FontName = "四级标题", Font = "方正仿宋_GBK", Size = font3, Indent = 2, NumberFormat = "（{0}）" },
+                    new Style { FontName = "正文表格", Font = "方正小标宋_GBK", Size = font2, Align = MSWord.WdParagraphAlignment.wdAlignParagraphCenter },
                     new Style { FontName = "附件列表", Font = "方正仿宋_GBK", Size = font3, Indent = 2},
                     new Style { FontName = "正文附件", Font = "方正黑体_GBK", Size = font3, Indent = 2},
                     new Style { FontName = "落款", Font = "方正仿宋_GBK", Size = font3, Align = MSWord.WdParagraphAlignment.wdAlignParagraphRight},
@@ -205,7 +206,16 @@ namespace ToWord
                     {
                         v.TContent.ConContent = string.Format(style.NumberFormat, titleB[d++]) + v.TContent.ConContent;
                     }
-                    word.AddContent(v.TContent.ConContent, style);
+                    if (v.TContent.ConType == "正文表格")
+                    {
+                        style = config.FontStyles.Find(w => w.FontName == "正文表格");
+                        word.AddContent(v.TContent.ConContent, style);
+                        word.AddExcel(((FileAppendix)v.Appendixs[0]).FilePath);
+                    }
+                    else
+                    {
+                        word.AddContent(v.TContent.ConContent, style);
+                    }
                 }
             }
 
@@ -459,6 +469,7 @@ namespace ToWord
                 }
             }
             MessageBox.Show("保存成功");
+            new Msg().ShowDialog();
         }
 
         private void AddAppendixs(List<Appendix> appendixs, int leve)
@@ -629,6 +640,7 @@ namespace ToWord
                                 f.Title = file.SafeFileName.Substring(0, file.SafeFileName.LastIndexOf("."));
                                 f.FileName = new Content() { ConType = "附件", ConContent = file.FileName };
                                 f.FilePath = file.FileName;
+                                if (n.Appendixs == null) n.Appendixs = new List<Appendix>();
                                 n.Appendixs.Add(f);
                                 DDLSource source = new DDLSource() { Index = n.Appendixs.Count - 1, Text = "【文件】" + f.Title };
                                 dDLSourceBindingSource.List.Add(source);
