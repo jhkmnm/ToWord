@@ -246,8 +246,8 @@ namespace ToWord
             //空一行
             word.AddLine();
 
-            style = config.FontStyles.Find(w => w.FontName == "发送至");
-            word.AddContent("国网重庆市电力公司永川供电分公司", style);
+            //style = config.FontStyles.Find(w => w.FontName == "发送至");
+            //word.AddContent("国网重庆市电力公司永川供电分公司", style);
 
             AddAppendixs(n.Appendixs, 0);
             #region
