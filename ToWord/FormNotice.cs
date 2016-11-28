@@ -307,7 +307,9 @@ namespace ToWord
         private void btnFile_Click(object sender, EventArgs e)
         {
             index = 0;
-            if (AddCheck())
+            DataVerifier dv = new DataVerifier();
+            dv.Check(selectedNode == null, "请选择上级节点来添加表格");
+            if (dv.Pass)
             {
                 using (OpenFileDialog file = new OpenFileDialog())
                 {
@@ -348,7 +350,8 @@ namespace ToWord
                         treeView1.ExpandAll();
                     }
                 }
-            }                
+            }
+            dv.ShowMsgIfFailed();
         }
     }
 }
