@@ -210,7 +210,16 @@ namespace ToWord
                     {
                         style = config.FontStyles.Find(w => w.FontName == "正文表格");
                         word.AddContent(v.TContent.ConContent, style);
-                        word.AddExcel(((FileAppendix)v.Appendixs[0]).FilePath);
+                        //word.AddExcel(((FileAppendix)v.Appendixs[0]).FilePath);
+                        var path = ((FileAppendix)v.Appendixs[0]).FilePath;
+                        if (path.EndsWith(".xls") || path.EndsWith(".xlsx"))
+                        {
+                            word.AddExcel(path);
+                        }
+                        else
+                        {
+                            word.AddImage(path);
+                        }
                     }
                     else
                     {

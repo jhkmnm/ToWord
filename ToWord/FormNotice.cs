@@ -169,6 +169,11 @@ namespace ToWord
         {            
             DataVerifier dv = new DataVerifier();
             dv.Check(selectedNode == null && index > 1, "请按照 一级标题->二级标题->三级标题->四级标题 的顺序添加!");
+            if (index == 1)
+            {
+                selectedNode = null;
+                treeView1.SelectedNode = null;
+            }
             if(selectedNode != null)
             {
                 int pindex = stitle.ToList().FindIndex(a => ((Title)selectedNode.Tag).TContent.ConType == a);
